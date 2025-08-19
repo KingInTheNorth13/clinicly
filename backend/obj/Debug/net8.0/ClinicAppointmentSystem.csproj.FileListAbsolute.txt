@@ -166,3 +166,5 @@ C:\Users\arbaaz.khan\source\repos\clinicly\backend\obj\Debug\net8.0\refint\Clini
 C:\Users\arbaaz.khan\source\repos\clinicly\backend\obj\Debug\net8.0\ClinicAppointmentSystem.pdb
 C:\Users\arbaaz.khan\source\repos\clinicly\backend\obj\Debug\net8.0\ClinicAppointmentSystem.genruntimeconfig.cache
 C:\Users\arbaaz.khan\source\repos\clinicly\backend\obj\Debug\net8.0\ref\ClinicAppointmentSystem.dll
+C:\Users\arbaaz.khan\source\repos\clinicly\backend\obj\Debug\net8.0\ClinicAppointmentSystem.sourcelink.json
+C:\Users\arbaaz.khan\source\repos\clinicly\backend\bin\Debug\net8.0\BCrypt.Net-Next.dll

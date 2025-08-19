@@ -35,14 +35,23 @@
     - Write seed data for initial clinic and admin user
     - _Requirements: 9.3_
 
-- [ ] 3. Implement authentication and authorization system
+- [x] 3. Implement authentication and authorization system
 
 
-  - [ ] 3.1 Create JWT authentication service
+
+
+
+
+
+  - [x] 3.1 Create JWT authentication service
+
+
     - Implement JWT token generation and validation logic
     - Create password hashing utilities using BCrypt
     - Write authentication middleware for API endpoints
     - _Requirements: 1.1, 1.2, 1.4_
+
+
 
   - [ ] 3.2 Implement user management and role-based access
     - Create User entity and authentication endpoints (login, refresh, logout)

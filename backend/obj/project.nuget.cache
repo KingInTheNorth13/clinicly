@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "oTf3Wz1K830=",
+  "dgSpecHash": "umtIjxXnC6c=",
   "success": true,
   "projectFilePath": "C:\\Users\\arbaaz.khan\\source\\repos\\clinicly\\backend\\ClinicAppointmentSystem.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\arbaaz.khan\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\arbaaz.khan\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
     "C:\\Users\\arbaaz.khan\\.nuget\\packages\\fluentvalidation\\11.11.0\\fluentvalidation.11.11.0.nupkg.sha512",
     "C:\\Users\\arbaaz.khan\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.3.1\\fluentvalidation.aspnetcore.11.3.1.nupkg.sha512",
