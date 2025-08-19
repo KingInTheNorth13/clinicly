@@ -54,14 +54,22 @@
     - Write integration tests for patient endpoints
     - _Requirements: 6.3_
 
-- [ ] 5. Build core appointment management API
-  - [ ] 5.1 Implement appointment repository and service layer
+- [x] 5. Build core appointment management API
+
+
+
+
+  - [x] 5.1 Implement appointment repository and service layer
+
+
     - Create IAppointmentRepository interface and implementation
     - Implement AppointmentService with business logic for CRUD operations
     - Add validation to prevent double booking conflicts
     - _Requirements: 3.1, 3.2, 3.3, 4.1, 4.3_
 
-  - [ ] 5.2 Create appointment API endpoints
+  - [x] 5.2 Create appointment API endpoints
+
+
     - Implement Minimal API endpoints for appointment CRUD operations
     - Add role-based filtering (doctors see only their appointments)
     - Implement appointment conflict detection and error handling

@@ -63,10 +63,12 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IPatientService, PatientService>();
+builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 
 // Register repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
+builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 
 // Add Hangfire (skip in testing environment)
 if (!builder.Environment.IsEnvironment("Testing"))
@@ -124,6 +126,9 @@ app.MapUserEndpoints();
 
 // Map patient management endpoints
 app.MapPatientEndpoints();
+
+// Map appointment management endpoints
+app.MapAppointmentEndpoints();
 
 // Health check endpoint
 app.MapGet("/health", () => Results.Ok(new { status = "healthy", timestamp = DateTime.UtcNow }))
