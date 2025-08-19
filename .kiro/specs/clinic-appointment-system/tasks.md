@@ -1,11 +1,6 @@
 # Implementation Plan
 
 - [x] 1. Set up project structure and development environment
-
-
-
-
-
   - Create .NET 8 Web API project with proper folder structure (Controllers, Services, Repositories, Models, DTOs)
   - Create React TypeScript project with Vite and configure TailwindCSS
   - Configure PostgreSQL connection and Entity Framework Core
@@ -14,117 +9,113 @@
   - _Requirements: 9.1, 9.2, 9.3_
 
 - [x] 2. Implement database models and Entity Framework setup
-
-
-
-
-
   - [x] 2.1 Create Entity Framework models and DbContext
-
-
     - Write entity classes for Clinic, Doctor, Patient, User, and Appointment
     - Configure DbContext with proper relationships and constraints
     - Implement unique constraint for doctor_id + datetime to prevent double booking
     - _Requirements: 3.2, 9.3_
 
-
   - [x] 2.2 Create and run database migrations
-
     - Generate initial migration with all tables and relationships
     - Create database indexes for performance optimization
     - Write seed data for initial clinic and admin user
     - _Requirements: 9.3_
 
 - [x] 3. Implement authentication and authorization system
-
-
-
-
-
-
-
   - [x] 3.1 Create JWT authentication service
-
-
     - Implement JWT token generation and validation logic
     - Create password hashing utilities using BCrypt
     - Write authentication middleware for API endpoints
     - _Requirements: 1.1, 1.2, 1.4_
 
-
-
-  - [ ] 3.2 Implement user management and role-based access
+  - [x] 3.2 Implement user management and role-based access
     - Create User entity and authentication endpoints (login, refresh, logout)
     - Implement role-based authorization attributes for Doctor and Admin roles
     - Write unit tests for authentication service and middleware
     - _Requirements: 1.3, 5.4_
 
-- [ ] 4. Build core appointment management API
-  - [ ] 4.1 Implement appointment repository and service layer
-    - Create IAppointmentRepository interface and implementation
-    - Implement AppointmentService with business logic for CRUD operations
-    - Add validation to prevent double booking conflicts
-    - _Requirements: 3.1, 3.2, 3.3, 4.1, 4.3_
+- [ ] 4. Build patient management system
+  - [x] 4.1 Implement patient repository and service layer
 
-  - [ ] 4.2 Create appointment API endpoints
-    - Implement Minimal API endpoints for appointment CRUD operations
-    - Add role-based filtering (doctors see only their appointments)
-    - Implement appointment conflict detection and error handling
-    - Write integration tests for appointment endpoints
-    - _Requirements: 2.4, 4.2, 5.1, 5.3_
-
-- [ ] 5. Build patient management system
-  - [ ] 5.1 Implement patient repository and service layer
     - Create IPatientRepository interface and implementation
     - Implement PatientService with CRUD operations and search functionality
     - Add patient-appointment relationship management
     - _Requirements: 6.1, 6.2, 6.4_
 
-  - [ ] 5.2 Create patient API endpoints
+  - [x] 4.2 Create patient API endpoints
+
+
+
+
+
     - Implement Minimal API endpoints for patient management
     - Add search functionality with filtering by name and contact information
     - Implement patient-appointment linking logic
     - Write integration tests for patient endpoints
     - _Requirements: 6.3_
 
-- [ ] 6. Set up Hangfire background job processing
-  - [ ] 6.1 Configure Hangfire for background jobs
-    - Install and configure Hangfire with PostgreSQL storage
-    - Set up Hangfire dashboard and job queue processing
-    - Create background job service interfaces and implementations
-    - _Requirements: 8.1, 8.2_
+- [ ] 5. Build core appointment management API
+  - [ ] 5.1 Implement appointment repository and service layer
+    - Create IAppointmentRepository interface and implementation
+    - Implement AppointmentService with business logic for CRUD operations
+    - Add validation to prevent double booking conflicts
+    - _Requirements: 3.1, 3.2, 3.3, 4.1, 4.3_
 
-  - [ ] 6.2 Implement reminder scheduling system
-    - Create reminder job that schedules 24 hours before appointments
-    - Implement job scheduling when appointments are created or updated
-    - Add job cancellation when appointments are cancelled
-    - Write unit tests for reminder scheduling logic
-    - _Requirements: 7.1, 8.3_
+  - [ ] 5.2 Create appointment API endpoints
+    - Implement Minimal API endpoints for appointment CRUD operations
+    - Add role-based filtering (doctors see only their appointments)
+    - Implement appointment conflict detection and error handling
+    - Write integration tests for appointment endpoints
+    - _Requirements: 2.4, 4.2, 5.1, 5.3_
 
-- [ ] 7. Integrate email notification service
-  - [ ] 7.1 Implement SendGrid email service
-    - Create email service using SendGrid API
+- [ ] 6. Integrate email notification service
+  - [ ] 6.1 Implement SendGrid email service
+    - Install SendGrid NuGet package and configure API key
+    - Create IEmailService interface and SendGridEmailService implementation
     - Implement email templates for appointment reminders
     - Add error handling and delivery status tracking
-    - Write integration tests for email notification service
+    - Write unit tests for email service
     - _Requirements: 7.2, 7.4_
 
-  - [ ] 7.2 Create notification orchestration service
-    - Implement NotificationService that handles email delivery
+  - [ ] 6.2 Create notification orchestration service
+    - Implement INotificationService interface and NotificationService implementation
     - Add retry logic with exponential backoff for failed notifications
     - Implement notification logging and status tracking
     - Create extensible interface for future notification channels (WhatsApp, SMS)
+    - Write unit tests for notification service
     - _Requirements: 8.4_
 
+- [ ] 7. Implement Hangfire background job processing for reminders
+  - [ ] 7.1 Create reminder scheduling system
+    - Create IReminderService interface and ReminderService implementation
+    - Implement reminder job that schedules 24 hours before appointments
+    - Add job scheduling when appointments are created or updated
+    - Add job cancellation when appointments are cancelled or rescheduled
+    - _Requirements: 7.1, 8.1, 8.2, 8.3_
+
+  - [ ] 7.2 Integrate reminder system with appointment management
+    - Update appointment service to schedule/cancel reminder jobs
+    - Implement background job processing for reminder delivery
+    - Add job retry logic and error handling
+    - Write integration tests for reminder scheduling system
+    - _Requirements: 8.3, 8.4_
+
 - [ ] 8. Build React frontend foundation
-  - [ ] 8.1 Set up React project structure and routing
-    - Set up React Router for navigation between pages
-    - Create basic project structure with components, hooks, services, and types folders
+  - [ ] 8.1 Install required frontend dependencies
+    - Install React Router, Axios, React Hook Form, Zod, FullCalendar
+    - Install additional shadcn/ui components (Form, Dialog, DataTable, etc.)
+    - Set up proper TypeScript types and interfaces
     - Configure environment variables for API base URL
-    - Create basic layout components using shadcn/ui
     - _Requirements: 9.2_
 
-  - [ ] 8.2 Implement authentication context and API client
+  - [ ] 8.2 Set up React project structure and routing
+    - Set up React Router for navigation between pages
+    - Create basic project structure with components, hooks, services, and types folders
+    - Create basic layout components using shadcn/ui
+    - Replace default App.tsx with proper application structure
+    - _Requirements: 9.2_
+
+  - [ ] 8.3 Implement authentication context and API client
     - Create AuthContext for managing JWT tokens and user state
     - Implement Axios client with interceptors for API communication
     - Create authentication service for login, logout, and token refresh

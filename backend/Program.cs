@@ -17,9 +17,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Add Entity Framework
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+// Add Entity Framework (conditionally for testing)
+if (builder.Environment.IsEnvironment("Testing"))
+{
+    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseInMemoryDatabase("TestDatabase"));
+}
+else
+{
+    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+}
 
 // Add JWT Authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -54,18 +62,23 @@ builder.Services.AddAuthorization(options =>
 // Register application services
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IPatientService, PatientService>();
 
 // Register repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 
-// Add Hangfire
-builder.Services.AddHangfire(configuration => configuration
-    .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
-    .UseSimpleAssemblyNameTypeSerializer()
-    .UseRecommendedSerializerSettings()
-    .UsePostgreSqlStorage(builder.Configuration.GetConnectionString("DefaultConnection")));
+// Add Hangfire (skip in testing environment)
+if (!builder.Environment.IsEnvironment("Testing"))
+{
+    builder.Services.AddHangfire(configuration => configuration
+        .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+        .UseSimpleAssemblyNameTypeSerializer()
+        .UseRecommendedSerializerSettings()
+        .UsePostgreSqlStorage(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddHangfireServer();
+    builder.Services.AddHangfireServer();
+}
 
 // Add FluentValidation
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
@@ -97,8 +110,11 @@ app.UseCors("AllowFrontend");
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Add Hangfire Dashboard
-app.UseHangfireDashboard("/hangfire");
+// Add Hangfire Dashboard (skip in testing environment)
+if (!app.Environment.IsEnvironment("Testing"))
+{
+    app.UseHangfireDashboard("/hangfire");
+}
 
 // Map authentication endpoints
 app.MapAuthenticationEndpoints();
@@ -106,9 +122,15 @@ app.MapAuthenticationEndpoints();
 // Map user management endpoints
 app.MapUserEndpoints();
 
+// Map patient management endpoints
+app.MapPatientEndpoints();
+
 // Health check endpoint
 app.MapGet("/health", () => Results.Ok(new { status = "healthy", timestamp = DateTime.UtcNow }))
     .WithName("HealthCheck")
     .WithOpenApi();
 
 app.Run();
+
+// Make Program class accessible for testing
+public partial class Program { }

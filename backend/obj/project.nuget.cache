@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "umtIjxXnC6c=",
+  "dgSpecHash": "VCwKon241EA=",
   "success": true,
   "projectFilePath": "C:\\Users\\arbaaz.khan\\source\\repos\\clinicly\\backend\\ClinicAppointmentSystem.csproj",
   "expectedPackageFiles": [
@@ -30,6 +30,7 @@
     "C:\\Users\\arbaaz.khan\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\9.0.8\\microsoft.entityframeworkcore.abstractions.9.0.8.nupkg.sha512",
     "C:\\Users\\arbaaz.khan\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\9.0.8\\microsoft.entityframeworkcore.analyzers.9.0.8.nupkg.sha512",
     "C:\\Users\\arbaaz.khan\\.nuget\\packages\\microsoft.entityframeworkcore.design\\9.0.8\\microsoft.entityframeworkcore.design.9.0.8.nupkg.sha512",
+    "C:\\Users\\arbaaz.khan\\.nuget\\packages\\microsoft.entityframeworkcore.inmemory\\9.0.8\\microsoft.entityframeworkcore.inmemory.9.0.8.nupkg.sha512",
     "C:\\Users\\arbaaz.khan\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\9.0.8\\microsoft.entityframeworkcore.relational.9.0.8.nupkg.sha512",
     "C:\\Users\\arbaaz.khan\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "C:\\Users\\arbaaz.khan\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\9.0.8\\microsoft.extensions.caching.abstractions.9.0.8.nupkg.sha512",
