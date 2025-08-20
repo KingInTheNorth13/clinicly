@@ -169,3 +169,6 @@ C:\Users\arbaaz.khan\source\repos\clinicly\backend\obj\Debug\net8.0\ref\ClinicAp
 C:\Users\arbaaz.khan\source\repos\clinicly\backend\obj\Debug\net8.0\ClinicAppointmentSystem.sourcelink.json
 C:\Users\arbaaz.khan\source\repos\clinicly\backend\bin\Debug\net8.0\BCrypt.Net-Next.dll
 C:\Users\arbaaz.khan\source\repos\clinicly\backend\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.InMemory.dll
+C:\Users\arbaaz.khan\source\repos\clinicly\backend\bin\Debug\net8.0\SendGrid.dll
+C:\Users\arbaaz.khan\source\repos\clinicly\backend\bin\Debug\net8.0\StarkbankEcdsa.dll
+C:\Users\arbaaz.khan\source\repos\clinicly\backend\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

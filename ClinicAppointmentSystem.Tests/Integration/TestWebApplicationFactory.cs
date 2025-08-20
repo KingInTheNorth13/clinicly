@@ -20,6 +20,9 @@ public class TestWebApplicationFactory<TProgram> : WebApplicationFactory<TProgra
         {
             // Reduce logging noise during tests
             services.AddLogging(builder => builder.SetMinimumLevel(LogLevel.Warning));
+            
+            // Register mock background job service for testing
+            services.AddScoped<ClinicAppointmentSystem.Services.IBackgroundJobService, MockBackgroundJobService>();
 
             // Build the service provider and seed data
             var serviceProvider = services.BuildServiceProvider();
@@ -72,7 +75,7 @@ public class TestWebApplicationFactory<TProgram> : WebApplicationFactory<TProgra
             Id = 1,
             ClinicId = 1,
             Email = "admin@testclinic.com",
-            PasswordHash = "$2a$11$rQZrHzXJlLdKmOTKvKzGKOqP8vKzXJlLdKmOTKvKzGKOqP8vKzXJlL", // "password123"
+            PasswordHash = "$2a$11$OTvljfKFp1GtdGihr7/peu8ynfVnlq2xu4IXOZq8pOFQ.Wyucq4t.", // "password123"
             Role = ClinicAppointmentSystem.Models.UserRole.Admin
         };
 
@@ -83,7 +86,7 @@ public class TestWebApplicationFactory<TProgram> : WebApplicationFactory<TProgra
             ClinicId = 1,
             DoctorId = 1,
             Email = "doctor@testclinic.com",
-            PasswordHash = "$2a$11$rQZrHzXJlLdKmOTKvKzGKOqP8vKzXJlLdKmOTKvKzGKOqP8vKzXJlL", // "password123"
+            PasswordHash = "$2a$11$OTvljfKFp1GtdGihr7/peu8ynfVnlq2xu4IXOZq8pOFQ.Wyucq4t.", // "password123"
             Role = ClinicAppointmentSystem.Models.UserRole.Doctor
         };
 

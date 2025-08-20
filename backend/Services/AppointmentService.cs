@@ -9,17 +9,20 @@ public class AppointmentService : IAppointmentService
     private readonly IAppointmentRepository _appointmentRepository;
     private readonly IPatientRepository _patientRepository;
     private readonly IUserService _userService;
+    private readonly IReminderService _reminderService;
     private readonly ILogger<AppointmentService> _logger;
 
     public AppointmentService(
         IAppointmentRepository appointmentRepository,
         IPatientRepository patientRepository,
         IUserService userService,
+        IReminderService reminderService,
         ILogger<AppointmentService> logger)
     {
         _appointmentRepository = appointmentRepository;
         _patientRepository = patientRepository;
         _userService = userService;
+        _reminderService = reminderService;
         _logger = logger;
     }
 
@@ -204,6 +207,24 @@ public class AppointmentService : IAppointmentService
             };
 
             var createdAppointment = await _appointmentRepository.CreateAsync(appointment);
+            
+            // Schedule reminder job for the new appointment
+            try
+            {
+                var jobId = await _reminderService.ScheduleReminderAsync(createdAppointment);
+                if (!string.IsNullOrEmpty(jobId))
+                {
+                    // Update the appointment with the job ID
+                    createdAppointment.ReminderJobId = jobId;
+                    await _appointmentRepository.UpdateAsync(createdAppointment);
+                    _logger.LogInformation("Scheduled reminder job {JobId} for appointment {AppointmentId}", jobId, createdAppointment.Id);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "Failed to schedule reminder for appointment {AppointmentId}, but appointment was created successfully", createdAppointment.Id);
+            }
+            
             _logger.LogInformation("Appointment created successfully: {AppointmentId} for doctor {DoctorId} and patient {PatientId}", 
                 createdAppointment.Id, doctorId, request.PatientId);
             
@@ -249,6 +270,7 @@ public class AppointmentService : IAppointmentService
             }
 
             // Check for conflicts if datetime is being changed
+            bool dateTimeChanged = false;
             if (request.DateTime.HasValue && request.DateTime.Value != appointment.DateTime)
             {
                 var conflictCheck = await CheckAppointmentConflictAsync(appointment.DoctorId, request.DateTime.Value, id);
@@ -259,6 +281,7 @@ public class AppointmentService : IAppointmentService
                     return null;
                 }
                 appointment.DateTime = request.DateTime.Value;
+                dateTimeChanged = true;
             }
 
             // Update other fields
@@ -273,6 +296,52 @@ public class AppointmentService : IAppointmentService
             }
 
             var updatedAppointment = await _appointmentRepository.UpdateAsync(appointment);
+            
+            // Handle reminder rescheduling if needed
+            try
+            {
+                if (dateTimeChanged || (request.Status.HasValue && request.Status.Value == AppointmentStatus.Cancelled))
+                {
+                    if (!string.IsNullOrEmpty(updatedAppointment.ReminderJobId))
+                    {
+                        if (request.Status.HasValue && request.Status.Value == AppointmentStatus.Cancelled)
+                        {
+                            // Cancel reminder for cancelled appointments
+                            await _reminderService.CancelReminderAsync(updatedAppointment.ReminderJobId);
+                            updatedAppointment.ReminderJobId = null;
+                            await _appointmentRepository.UpdateAsync(updatedAppointment);
+                            _logger.LogInformation("Cancelled reminder for cancelled appointment {AppointmentId}", id);
+                        }
+                        else if (dateTimeChanged && updatedAppointment.Status == AppointmentStatus.Scheduled)
+                        {
+                            // Reschedule reminder for date/time changes
+                            var newJobId = await _reminderService.RescheduleReminderAsync(updatedAppointment.ReminderJobId, updatedAppointment);
+                            if (!string.IsNullOrEmpty(newJobId))
+                            {
+                                updatedAppointment.ReminderJobId = newJobId;
+                                await _appointmentRepository.UpdateAsync(updatedAppointment);
+                                _logger.LogInformation("Rescheduled reminder for appointment {AppointmentId} with new job {JobId}", id, newJobId);
+                            }
+                        }
+                    }
+                    else if (dateTimeChanged && updatedAppointment.Status == AppointmentStatus.Scheduled)
+                    {
+                        // Schedule new reminder if none exists and appointment is scheduled
+                        var jobId = await _reminderService.ScheduleReminderAsync(updatedAppointment);
+                        if (!string.IsNullOrEmpty(jobId))
+                        {
+                            updatedAppointment.ReminderJobId = jobId;
+                            await _appointmentRepository.UpdateAsync(updatedAppointment);
+                            _logger.LogInformation("Scheduled new reminder for appointment {AppointmentId} with job {JobId}", id, jobId);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "Failed to handle reminder scheduling for updated appointment {AppointmentId}", id);
+            }
+            
             _logger.LogInformation("Appointment updated successfully: {AppointmentId}", id);
             
             return updatedAppointment;
@@ -288,21 +357,35 @@ public class AppointmentService : IAppointmentService
     {
         try
         {
-            // Check if appointment exists and access is allowed
-            if (restrictToDoctorId.HasValue)
+            // Get appointment first to check access and cancel reminder
+            var appointment = await _appointmentRepository.GetByIdAsync(id);
+            if (appointment == null)
             {
-                var appointment = await _appointmentRepository.GetByIdAsync(id);
-                if (appointment == null)
-                {
-                    _logger.LogWarning("Appointment not found for deletion: {AppointmentId}", id);
-                    return false;
-                }
+                _logger.LogWarning("Appointment not found for deletion: {AppointmentId}", id);
+                return false;
+            }
 
-                if (appointment.DoctorId != restrictToDoctorId.Value)
+            // Check if access is restricted to a specific doctor
+            if (restrictToDoctorId.HasValue && appointment.DoctorId != restrictToDoctorId.Value)
+            {
+                _logger.LogWarning("Access denied: Doctor {DoctorId} cannot delete appointment {AppointmentId} belonging to doctor {AppointmentDoctorId}", 
+                    restrictToDoctorId.Value, id, appointment.DoctorId);
+                return false;
+            }
+
+            // Cancel reminder job if it exists
+            if (!string.IsNullOrEmpty(appointment.ReminderJobId))
+            {
+                try
                 {
-                    _logger.LogWarning("Access denied: Doctor {DoctorId} cannot delete appointment {AppointmentId} belonging to doctor {AppointmentDoctorId}", 
-                        restrictToDoctorId.Value, id, appointment.DoctorId);
-                    return false;
+                    await _reminderService.CancelReminderAsync(appointment.ReminderJobId);
+                    _logger.LogInformation("Cancelled reminder job {JobId} for deleted appointment {AppointmentId}", 
+                        appointment.ReminderJobId, id);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogWarning(ex, "Failed to cancel reminder job {JobId} for appointment {AppointmentId}", 
+                        appointment.ReminderJobId, id);
                 }
             }
 

@@ -27,6 +27,8 @@ public class Appointment
     
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     
+    public string? ReminderJobId { get; set; }
+    
     // Navigation properties
     public Doctor Doctor { get; set; } = null!;
     public Patient Patient { get; set; } = null!;

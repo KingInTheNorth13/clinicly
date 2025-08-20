@@ -5,11 +5,13 @@ using System.Text;
 using Hangfire;
 using Hangfire.PostgreSql;
 using FluentValidation;
+using SendGrid;
 using ClinicAppointmentSystem.Data;
 using ClinicAppointmentSystem.Services;
 using ClinicAppointmentSystem.Endpoints;
 using ClinicAppointmentSystem.Authorization;
 using ClinicAppointmentSystem.Repositories;
+using backend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -64,6 +66,23 @@ builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IPatientService, PatientService>();
 builder.Services.AddScoped<IAppointmentService, AppointmentService>();
+builder.Services.AddScoped<IReminderService, ReminderService>();
+builder.Services.AddScoped<IBackgroundJobService, BackgroundJobService>();
+
+// Register SendGrid email service
+builder.Services.AddSingleton<ISendGridClient>(provider =>
+{
+    var apiKey = builder.Configuration["SendGrid:ApiKey"];
+    if (string.IsNullOrEmpty(apiKey))
+    {
+        throw new InvalidOperationException("SendGrid API key is not configured. Please set SendGrid:ApiKey in configuration.");
+    }
+    return new SendGridClient(apiKey);
+});
+builder.Services.AddScoped<IEmailService, SendGridEmailService>();
+
+// Register notification orchestration service
+builder.Services.AddScoped<INotificationService, NotificationService>();
 
 // Register repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -79,7 +98,18 @@ if (!builder.Environment.IsEnvironment("Testing"))
         .UseRecommendedSerializerSettings()
         .UsePostgreSqlStorage(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-    builder.Services.AddHangfireServer();
+    builder.Services.AddHangfireServer(options =>
+    {
+        options.WorkerCount = Environment.ProcessorCount * 2;
+        options.Queues = new[] { "default", "reminders" };
+    });
+    
+    // Configure global job filters for retry logic
+    GlobalJobFilters.Filters.Add(new AutomaticRetryAttribute 
+    { 
+        Attempts = 3,
+        DelaysInSeconds = new[] { 60, 300, 900 } // 1 min, 5 min, 15 min
+    });
 }
 
 // Add FluentValidation
