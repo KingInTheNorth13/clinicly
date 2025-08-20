@@ -183,7 +183,7 @@
     - Add route guards for Doctor and Admin specific pages
     - _Requirements: 1.3, 5.4_
 
-- [ ] 10. Build appointment management UI
+- [ ] 10. Build modern interactive appointment management UI
   - [ ] 10.1 Create calendar view with FullCalendar integration
     - Implement CalendarView component with FullCalendar
     - Integrate with appointment API to display appointments
