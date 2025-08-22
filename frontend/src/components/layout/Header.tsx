@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { cn } from '@/lib/utils';
+import { ThemeToggleButton } from '../ThemeToggleButton';
 
 export function Header() {
   const { user, logout } = useAuth();
@@ -72,6 +73,8 @@ export function Header() {
             <Bell className="h-4 w-4" />
             <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></span>
           </Button>
+
+          <ThemeToggleButton />
 
           {/* User Menu */}
           <div className="relative">

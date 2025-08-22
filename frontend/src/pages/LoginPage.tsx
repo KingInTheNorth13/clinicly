@@ -66,73 +66,16 @@ export function LoginPage() {
 
   if (loading) {
     return (
-      <div style={{
-        minHeight: '100vh',
-        height: '100vh',
-        width: '100vw',
-        background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        margin: 0,
-        overflow: 'hidden',
-        fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-        boxSizing: 'border-box'
-      }}>
+      <div className="fixed inset-0 flex items-center justify-center bg-background overflow-hidden">
         {/* Medical-themed background pattern */}
-        <div style={{
-          position: 'absolute',
-          width: '100%',
-          height: '100%',
-          backgroundImage: `
-            radial-gradient(circle at 25% 25%, rgba(20, 184, 166, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 75% 75%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.05) 0%, transparent 50%)
-          `,
-          animation: 'medicalFloat 8s ease-in-out infinite'
-        }}></div>
-        
-        <div style={{ 
-          textAlign: 'center', 
-          zIndex: 10,
-          transform: isVisible ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.9)',
-          opacity: isVisible ? 1 : 0,
-          transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)'
-        }}>
-          <div style={{
-            width: '80px',
-            height: '80px',
-            background: 'linear-gradient(135deg, #14b8a6 0%, #0891b2 100%)',
-            borderRadius: '50%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            margin: '0 auto 24px',
-            boxShadow: '0 20px 40px rgba(20, 184, 166, 0.3), 0 0 0 10px rgba(20, 184, 166, 0.1)',
-            animation: 'medicalPulse 2s ease-in-out infinite',
-            border: '2px solid rgba(20, 184, 166, 0.3)'
-          }}>
-            <Stethoscope size={40} color="white" />
+        <div className="absolute w-full h-full bg-grid-pattern animate-medical-float"></div>
+
+        <div className={`text-center z-10 transition-all duration-1000 ease-in-out ${isVisible ? 'translate-y-0 scale-100 opacity-100' : 'translate-y-5 scale-95 opacity-0'}`}>
+          <div className="w-20 h-20 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg animate-medical-pulse border-2 border-teal-500/30">
+            <Stethoscope size={40} className="text-white" />
           </div>
-          <div style={{
-            width: '40px',
-            height: '40px',
-            border: '3px solid rgba(20, 184, 166, 0.3)',
-            borderTop: '3px solid #14b8a6',
-            borderRadius: '50%',
-            margin: '0 auto 16px',
-            animation: 'spin 1s linear infinite'
-          }}></div>
-          <p style={{ 
-            fontSize: '16px', 
-            color: '#e2e8f0', 
-            fontWeight: '500'
-          }}>
+          <div className="w-10 h-10 border-4 border-teal-500/30 border-t-teal-500 rounded-full mx-auto mb-4 animate-spin"></div>
+          <p className="text-lg text-foreground font-medium">
             Loading your session...
           </p>
         </div>
@@ -141,358 +84,114 @@ export function LoginPage() {
   }
 
   return (
-    <div className="login-container" style={{
-      minHeight: '100vh',
-      height: '100vh',
-      width: '100vw',
-      background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: '20px',
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      margin: 0,
-      overflow: 'hidden',
-      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-      boxSizing: 'border-box'
-    }}>
+    <div className="fixed inset-0 flex items-center justify-center p-5 bg-background overflow-hidden">
       {/* Medical-themed background elements */}
-      <div style={{
-        position: 'absolute',
-        width: '100%',
-        height: '100%',
-        backgroundImage: `
-          radial-gradient(circle at 25% 25%, rgba(20, 184, 166, 0.1) 0%, transparent 50%),
-          radial-gradient(circle at 75% 75%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-          radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.05) 0%, transparent 50%)
-        `,
-        animation: 'medicalFloat 8s ease-in-out infinite'
-      }}></div>
-      
+      <div className="absolute w-full h-full bg-grid-pattern animate-medical-float"></div>
+
       {/* Floating medical icons */}
-      <div style={{
-        position: 'absolute',
-        top: '15%',
-        left: '10%',
-        color: 'rgba(20, 184, 166, 0.2)',
-        animation: 'medicalFloat 6s ease-in-out infinite'
-      }}>
+      <div className="absolute top-[15%] left-[10%] text-primary/20 animate-medical-float animation-delay-none">
         <Heart size={24} />
       </div>
-      <div style={{
-        position: 'absolute',
-        top: '70%',
-        right: '15%',
-        color: 'rgba(59, 130, 246, 0.2)',
-        animation: 'medicalFloat 8s ease-in-out infinite 2s'
-      }}>
+      <div className="absolute top-[70%] right-[15%] text-blue-500/20 animate-medical-float animation-delay-2000">
         <Calendar size={20} />
       </div>
-      <div style={{
-        position: 'absolute',
-        bottom: '25%',
-        left: '20%',
-        color: 'rgba(16, 185, 129, 0.2)',
-        animation: 'medicalFloat 7s ease-in-out infinite 1s'
-      }}>
+      <div className="absolute bottom-[25%] left-[20%] text-emerald-500/20 animate-medical-float animation-delay-1000">
         <Shield size={28} />
       </div>
 
-      <div style={{
-        width: '100%',
-        maxWidth: '520px',
-        margin: '0 auto',
-        zIndex: 10,
-        transform: isVisible ? 'translateY(0) scale(1)' : 'translateY(30px) scale(0.95)',
-        opacity: isVisible ? 1 : 0,
-        transition: 'all 1s cubic-bezier(0.16, 1, 0.3, 1)',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center'
-      }}>
+      <div className={`w-full max-w-lg mx-auto z-10 flex flex-col items-center transition-all duration-1000 ease-in-out ${isVisible ? 'translate-y-0 scale-100 opacity-100' : 'translate-y-8 scale-95 opacity-0'}`}>
         {/* Logo and branding */}
-        <div style={{ 
-          textAlign: 'center', 
-          marginBottom: '40px',
-          transform: isVisible ? 'translateY(0)' : 'translateY(-20px)',
-          opacity: isVisible ? 1 : 0,
-          transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s',
-          width: '100%'
-        }}>
-          <div style={{
-            width: '90px',
-            height: '90px',
-            background: 'linear-gradient(135deg, #14b8a6 0%, #0891b2 100%)',
-            borderRadius: '50%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            margin: '0 auto 24px',
-            boxShadow: '0 25px 50px rgba(20, 184, 166, 0.3), 0 0 0 15px rgba(20, 184, 166, 0.1)',
-            animation: 'medicalPulse 3s ease-in-out infinite',
-            border: '3px solid rgba(20, 184, 166, 0.2)',
-            position: 'relative'
-          }}>
-            <Stethoscope size={45} color="white" />
-            <div style={{
-              position: 'absolute',
-              top: '-8px',
-              right: '-8px',
-              width: '24px',
-              height: '24px',
-              background: 'linear-gradient(45deg, #10b981, #14b8a6)',
-              borderRadius: '50%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              animation: 'medicalSparkle 2s ease-in-out infinite',
-              border: '2px solid #0f172a'
-            }}>
-              <Heart size={12} color="white" />
+        <div className={`text-center mb-10 w-full transition-all duration-1000 ease-in-out delay-200 ${isVisible ? 'translate-y-0 opacity-100' : '-translate-y-5 opacity-0'}`}>
+          <div className="relative w-24 h-24 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg animate-medical-pulse border-4 border-primary/20">
+            <Stethoscope size={45} className="text-white" />
+            <div className="absolute -top-2 -right-2 w-7 h-7 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-full flex items-center justify-center animate-medical-sparkle border-2 border-background">
+              <Heart size={12} className="text-white" />
             </div>
           </div>
-          <h1 style={{
-            fontSize: 'clamp(32px, 5vw, 42px)',
-            fontWeight: '800',
-            color: '#f8fafc',
-            marginBottom: '12px',
-            margin: '0 0 12px 0',
-            letterSpacing: '-1px',
-            textShadow: '0 4px 8px rgba(0, 0, 0, 0.3)'
-          }}>
-           Clinicly
+          <h1 className="text-5xl font-extrabold text-foreground mb-3 tracking-tight text-shadow-lg">
+            Clinicly
           </h1>
-          <p style={{
-            fontSize: '18px',
-            color: '#94a3b8',
-            margin: '0',
-            fontWeight: '500'
-          }}>
+          <p className="text-lg text-muted-foreground font-medium">
             Advanced Clinic Management System
           </p>
         </div>
 
         {/* Login Card */}
-        <div className="login-card" style={{
-          backgroundColor: 'rgba(30, 41, 59, 0.95)',
-          borderRadius: '28px',
-          boxShadow: '0 40px 80px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(20, 184, 166, 0.1)',
-          padding: '60px',
-          backdropFilter: 'blur(20px)',
-          border: '1px solid rgba(51, 65, 85, 0.8)',
-          transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
-          opacity: isVisible ? 1 : 0,
-          transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s',
-          width: '100%'
-        }}>
-          {/* Card Header */}
-          <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-            <h2 style={{
-              fontSize: '36px',
-              fontWeight: '700',
-              background: 'linear-gradient(135deg, #14b8a6 0%, #0891b2 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-              marginBottom: '16px',
-              margin: '0 0 16px 0'
-            }}>
+        <div className={`w-full bg-card/80 backdrop-blur-xl border border-border/50 rounded-[28px] shadow-lg p-10 sm:p-12 transition-all duration-1000 ease-in-out delay-400 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'}`}>
+          <div className="text-center mb-10">
+            <h2 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-cyan-500 mb-4">
               Welcome Back
             </h2>
-            <p style={{ 
-              color: '#94a3b8', 
-              fontSize: '18px',
-              margin: '0',
-              fontWeight: '500'
-            }}>
+            <p className="text-muted-foreground text-lg">
               Sign in to access your clinic dashboard
             </p>
           </div>
 
-          {/* Form */}
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} style={{ marginBottom: '32px' }}>
-              <div style={{ marginBottom: '28px' }}>
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel style={{
-                        display: 'block',
-                        fontSize: '15px',
-                        fontWeight: '600',
-                        color: '#e2e8f0',
-                        marginBottom: '10px'
-                      }}>
-                        Email Address
-                      </FormLabel>
-                      <FormControl>
-                        <div style={{ position: 'relative' }}>
-                          <div style={{
-                            position: 'absolute',
-                            left: '18px',
-                            top: '50%',
-                            transform: 'translateY(-50%)',
-                            pointerEvents: 'none',
-                            zIndex: 1,
-                            color: focusedField === 'email' ? '#14b8a6' : '#64748b',
-                            transition: 'color 0.3s ease'
-                          }}>
-                            <Mail size={22} />
-                          </div>
-                          <Input
-                            type="email"
-                            autoComplete="email"
-                            placeholder="doctor@healthcarepro.com"
-                            style={{
-                              width: '100%',
-                              paddingLeft: '54px',
-                              paddingRight: '18px',
-                              paddingTop: '16px',
-                              paddingBottom: '16px',
-                              border: `2px solid ${focusedField === 'email' ? '#14b8a6' : '#475569'}`,
-                              borderRadius: '16px',
-                              fontSize: '16px',
-                              outline: 'none',
-                              boxSizing: 'border-box',
-                              transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-                              boxShadow: focusedField === 'email' ? '0 0 0 4px rgba(20, 184, 166, 0.15), 0 0 20px rgba(20, 184, 166, 0.1)' : 'none',
-                              transform: focusedField === 'email' ? 'translateY(-2px)' : 'translateY(0)',
-                              backgroundColor: 'rgba(51, 65, 85, 0.5)',
-                              color: '#f1f5f9',
-                              backdropFilter: 'blur(10px)'
-                            }}
-                            {...field}
-                            onFocus={() => setFocusedField('email')}
-                            onBlur={() => setFocusedField(null)}
-                          />
-                        </div>
-                      </FormControl>
-                      <FormMessage style={{ fontSize: '13px', color: '#f87171', marginTop: '8px' }} />
-                    </FormItem>
-                  )}
-                />
-              </div>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-7">
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="block text-sm font-semibold text-foreground mb-2">Email Address</FormLabel>
+                    <FormControl>
+                      <div className="relative">
+                        <Mail size={22} className={`absolute left-4 top-1/2 -translate-y-1/2 transition-colors duration-300 ${focusedField === 'email' ? 'text-primary' : 'text-muted-foreground'}`} />
+                        <Input
+                          type="email"
+                          autoComplete="email"
+                          placeholder="doctor@healthcarepro.com"
+                          className={`w-full pl-12 pr-4 py-6 text-base bg-input border-2 rounded-xl transition-all duration-300 focus:ring-2 focus:ring-primary ${focusedField === 'email' ? 'border-primary shadow-lg' : 'border-border'}`}
+                          {...field}
+                          onFocus={() => setFocusedField('email')}
+                          onBlur={() => setFocusedField(null)}
+                        />
+                      </div>
+                    </FormControl>
+                    <FormMessage className="text-sm text-destructive" />
+                  </FormItem>
+                )}
+              />
 
-              <div style={{ marginBottom: '36px' }}>
-                <FormField
-                  control={form.control}
-                  name="password"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel style={{
-                        display: 'block',
-                        fontSize: '15px',
-                        fontWeight: '600',
-                        color: '#e2e8f0',
-                        marginBottom: '10px'
-                      }}>
-                        Password
-                      </FormLabel>
-                      <FormControl>
-                        <div style={{ position: 'relative' }}>
-                          <div style={{
-                            position: 'absolute',
-                            left: '18px',
-                            top: '50%',
-                            transform: 'translateY(-50%)',
-                            pointerEvents: 'none',
-                            zIndex: 1,
-                            color: focusedField === 'password' ? '#14b8a6' : '#64748b',
-                            transition: 'color 0.3s ease'
-                          }}>
-                            <Lock size={22} />
-                          </div>
-                          <Input
-                            type={showPassword ? 'text' : 'password'}
-                            autoComplete="current-password"
-                            placeholder="Enter your secure password"
-                            style={{
-                              width: '100%',
-                              paddingLeft: '54px',
-                              paddingRight: '54px',
-                              paddingTop: '16px',
-                              paddingBottom: '16px',
-                              border: `2px solid ${focusedField === 'password' ? '#14b8a6' : '#475569'}`,
-                              borderRadius: '16px',
-                              fontSize: '16px',
-                              outline: 'none',
-                              boxSizing: 'border-box',
-                              transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-                              boxShadow: focusedField === 'password' ? '0 0 0 4px rgba(20, 184, 166, 0.15), 0 0 20px rgba(20, 184, 166, 0.1)' : 'none',
-                              transform: focusedField === 'password' ? 'translateY(-2px)' : 'translateY(0)',
-                              backgroundColor: 'rgba(51, 65, 85, 0.5)',
-                              color: '#f1f5f9',
-                              backdropFilter: 'blur(10px)'
-                            }}
-                            {...field}
-                            onFocus={() => setFocusedField('password')}
-                            onBlur={() => setFocusedField(null)}
-                          />
-                          <button
-                            type="button"
-                            onClick={() => setShowPassword(!showPassword)}
-                            style={{
-                              position: 'absolute',
-                              right: '18px',
-                              top: '50%',
-                              transform: 'translateY(-50%)',
-                              background: 'none',
-                              border: 'none',
-                              cursor: 'pointer',
-                              color: '#64748b',
-                              padding: '6px',
-                              borderRadius: '8px',
-                              transition: 'all 0.2s ease'
-                            }}
-                            onMouseEnter={(e) => {
-                              e.currentTarget.style.color = '#14b8a6';
-                              e.currentTarget.style.backgroundColor = 'rgba(20, 184, 166, 0.1)';
-                            }}
-                            onMouseLeave={(e) => {
-                              e.currentTarget.style.color = '#64748b';
-                              e.currentTarget.style.backgroundColor = 'transparent';
-                            }}
-                          >
-                            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                          </button>
-                        </div>
-                      </FormControl>
-                      <FormMessage style={{ fontSize: '13px', color: '#f87171', marginTop: '8px' }} />
-                    </FormItem>
-                  )}
-                />
-              </div>
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="block text-sm font-semibold text-foreground mb-2">Password</FormLabel>
+                    <FormControl>
+                      <div className="relative">
+                        <Lock size={22} className={`absolute left-4 top-1/2 -translate-y-1/2 transition-colors duration-300 ${focusedField === 'password' ? 'text-primary' : 'text-muted-foreground'}`} />
+                        <Input
+                          type={showPassword ? 'text' : 'password'}
+                          autoComplete="current-password"
+                          placeholder="Enter your secure password"
+                          className={`w-full pl-12 pr-12 py-6 text-base bg-input border-2 rounded-xl transition-all duration-300 focus:ring-2 focus:ring-primary ${focusedField === 'password' ? 'border-primary shadow-lg' : 'border-border'}`}
+                          {...field}
+                          onFocus={() => setFocusedField('password')}
+                          onBlur={() => setFocusedField(null)}
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-primary transition-colors duration-200 p-1 rounded-md"
+                        >
+                          {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                        </button>
+                      </div>
+                    </FormControl>
+                    <FormMessage className="text-sm text-destructive" />
+                  </FormItem>
+                )}
+              />
 
-              {/* Forgot Password Link */}
-              <div style={{ textAlign: 'right', marginBottom: '32px' }}>
+              <div className="text-right">
                 <button
                   type="button"
-                  style={{
-                    background: 'none',
-                    border: 'none',
-                    color: '#14b8a6',
-                    fontSize: '14px',
-                    fontWeight: '500',
-                    cursor: 'pointer',
-                    textDecoration: 'none',
-                    transition: 'all 0.2s ease'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.color = '#0891b2';
-                    e.currentTarget.style.textDecoration = 'underline';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.color = '#14b8a6';
-                    e.currentTarget.style.textDecoration = 'none';
-                  }}
+                  className="text-sm font-medium text-primary hover:text-cyan-500 transition-colors duration-200 inline-flex items-center gap-2"
                 >
-                  <HelpCircle size={16} style={{ marginRight: '6px', verticalAlign: 'middle' }} />
+                  <HelpCircle size={16} />
                   Forgot Password?
                 </button>
               </div>
@@ -500,154 +199,44 @@ export function LoginPage() {
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                style={{
-                  width: '100%',
-                  background: isSubmitting ? '#475569' : 'linear-gradient(135deg, #14b8a6 0%, #0891b2 100%)',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '16px',
-                  padding: '18px 24px',
-                  fontSize: '17px',
-                  fontWeight: '600',
-                  cursor: isSubmitting ? 'not-allowed' : 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '10px',
-                  boxShadow: isSubmitting ? 'none' : '0 12px 24px rgba(20, 184, 166, 0.3), 0 0 0 1px rgba(20, 184, 166, 0.2)',
-                  transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-                  transform: isSubmitting ? 'scale(0.98)' : 'scale(1)',
-                  position: 'relative',
-                  overflow: 'hidden'
-                }}
-                onMouseEnter={(e) => {
-                  if (!isSubmitting) {
-                    e.currentTarget.style.transform = 'translateY(-3px) scale(1.02)';
-                    e.currentTarget.style.boxShadow = '0 16px 32px rgba(20, 184, 166, 0.4), 0 0 0 1px rgba(20, 184, 166, 0.3)';
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!isSubmitting) {
-                    e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                    e.currentTarget.style.boxShadow = '0 12px 24px rgba(20, 184, 166, 0.3), 0 0 0 1px rgba(20, 184, 166, 0.2)';
-                  }
-                }}
+                className="w-full text-lg font-semibold py-7 rounded-xl bg-gradient-to-r from-primary to-cyan-600 hover:from-primary/90 hover:to-cyan-600/90 text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? (
                   <>
-                    <Loader2 size={22} style={{ animation: 'spin 1s linear infinite' }} />
+                    <Loader2 size={22} className="animate-spin mr-2" />
                     Signing in...
                   </>
                 ) : (
                   <>
-                    <Shield size={20} />
+                    <Shield size={20} className="mr-2" />
                     Sign In Securely
                   </>
                 )}
               </Button>
             </form>
           </Form>
-
-         
-               
         </div>
 
         {/* Footer */}
-        <div style={{ 
-          textAlign: 'center', 
-          marginTop: '40px',
-          transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
-          opacity: isVisible ? 1 : 0,
-          transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s'
-        }}>
-          <p style={{ 
-            fontSize: '14px', 
-            color: '#64748b', 
-            margin: '0',
-            fontWeight: '500'
-          }}>
+        <div className={`text-center mt-10 transition-all duration-1000 ease-in-out delay-600 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'}`}>
+          <p className="text-sm text-muted-foreground font-medium">
             🔒 Secure • 🏥 Trusted • 💼 Professional Healthcare Management
           </p>
         </div>
       </div>
 
-      {/* Enhanced CSS for medical-themed animations */}
       <style>{`
-        /* Reset any default margins/padding that might cause white space */
-        html, body {
-          margin: 0 !important;
-          padding: 0 !important;
-          overflow-x: hidden;
+        .bg-grid-pattern {
+          background-image: radial-gradient(circle at 25% 25%, rgb(var(--medical-primary) / 0.1) 0%, transparent 50%),
+                          radial-gradient(circle at 75% 75%, rgb(var(--medical-secondary) / 0.1) 0%, transparent 50%),
+                          radial-gradient(circle at 50% 50%, rgb(var(--medical-success) / 0.05) 0%, transparent 50%);
         }
-        
-        @keyframes spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
+        .text-shadow-lg {
+          text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
-        
-        @keyframes medicalFloat {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          33% { transform: translateY(-15px) rotate(2deg); }
-          66% { transform: translateY(8px) rotate(-1deg); }
-        }
-        
-        @keyframes medicalPulse {
-          0%, 100% { 
-            transform: scale(1);
-            box-shadow: 0 25px 50px rgba(20, 184, 166, 0.3), 0 0 0 15px rgba(20, 184, 166, 0.1);
-          }
-          50% { 
-            transform: scale(1.08);
-            box-shadow: 0 30px 60px rgba(20, 184, 166, 0.4), 0 0 0 20px rgba(20, 184, 166, 0.15);
-          }
-        }
-        
-        @keyframes medicalSparkle {
-          0%, 100% { 
-            transform: scale(1) rotate(0deg);
-            opacity: 1;
-          }
-          50% { 
-            transform: scale(1.3) rotate(180deg);
-            opacity: 0.7;
-          }
-        }
-        
-        @media (max-width: 640px) {
-          .login-container {
-            padding: 16px !important;
-          }
-          .login-card {
-            padding: 40px 32px !important;
-          }
-        }
-        
-        @media (max-width: 480px) {
-          .login-container {
-            padding: 12px !important;
-          }
-          .login-card {
-            padding: 32px 24px !important;
-          }
-        }
-        
-        /* Custom scrollbar for webkit browsers */
-        ::-webkit-scrollbar {
-          width: 8px;
-        }
-        
-        ::-webkit-scrollbar-track {
-          background: rgba(51, 65, 85, 0.3);
-        }
-        
-        ::-webkit-scrollbar-thumb {
-          background: rgba(20, 184, 166, 0.5);
-          border-radius: 4px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-          background: rgba(20, 184, 166, 0.7);
-        }
+        .animation-delay-none { animation-delay: 0s; }
+        .animation-delay-1000 { animation-delay: 1s; }
+        .animation-delay-2000 { animation-delay: 2s; }
       `}</style>
     </div>
   );

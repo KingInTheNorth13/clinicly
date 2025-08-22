@@ -5,150 +5,149 @@
 @layer base {
   :root {
     /* Medical Theme - Light Mode */
-    --background: 248 250 252;
-    /* slate-50 */
-    --foreground: 15 23 42;
-    /* slate-900 */
-    --card: 255 255 255;
-    /* white */
-    --card-foreground: 15 23 42;
-    /* slate-900 */
-    --popover: 255 255 255;
-    /* white */
-    --popover-foreground: 15 23 42;
-    /* slate-900 */
-    --primary: 20 184 166;
-    /* teal-500 - MEDICAL TEAL */
-    --primary-foreground: 255 255 255;
-    /* white */
-    --secondary: 226 232 240;
+    --background: 226, 232, 240;
     /* slate-200 */
-    --secondary-foreground: 30 41 59;
-    /* slate-800 */
-    --muted: 241 245 249;
+    --foreground: 15, 23, 42;
+    /* slate-900 */
+    --card: 241, 245, 249;
     /* slate-100 */
-    --muted-foreground: 100 116 139;
-    /* slate-500 */
-    --accent: 20 184 166;
+    --card-foreground: 15, 23, 42;
+    /* slate-900 */
+    --popover: 241, 245, 249;
+    /* slate-100 */
+    --popover-foreground: 15, 23, 42;
+    /* slate-900 */
+    --primary: 20, 184, 166;
     /* teal-500 - MEDICAL TEAL */
-    --accent-foreground: 255 255 255;
+    --primary-foreground: 255, 255, 255;
     /* white */
-    --destructive: 239 68 68;
+    --secondary: 226, 232, 240;
+    /* slate-200 */
+    --secondary-foreground: 30, 41, 59;
+    /* slate-800 */
+    --muted: 241, 245, 249;
+    /* slate-100 */
+    --muted-foreground: 100, 116, 139;
+    /* slate-500 */
+    --accent: 20, 184, 166;
+    /* teal-500 - MEDICAL TEAL */
+    --accent-foreground: 255, 255, 255;
+    /* white */
+    --destructive: 239, 68, 68;
     /* red-500 */
-    --destructive-foreground: 248 250 252;
+    --destructive-foreground: 248, 250, 252;
     /* slate-50 */
-    --border: 226 232 240;
+    --border: 226, 232, 240;
     /* slate-200 */
-    --input: 226 232 240;
+    --input: 226, 232, 240;
     /* slate-200 */
-    --ring: 20 184 166;
+    --ring: 20, 184, 166;
     /* teal-500 - MEDICAL TEAL */
     --radius: 0.5rem;
     /* 8px for better compatibility */
 
     /* Medical specific colors */
-    --medical-primary: 20 184 166;
+    --medical-primary: 20, 184, 166;
     /* teal-500 */
-    --medical-secondary: 8 145 178;
+    --medical-secondary: 8, 145, 178;
     /* cyan-600 */
-    --medical-success: 16 185 129;
+    --medical-success: 16, 185, 129;
     /* emerald-500 */
-    --medical-warning: 245 158 11;
+    --medical-warning: 245, 158, 11;
     /* amber-500 */
-    --medical-error: 239 68 68;
+    --medical-error: 239, 68, 68;
     /* red-500 */
   }
 
   .dark {
     /* Medical Theme - Dark Mode */
-    --background: 15 23 42;
+    --background: 15, 23, 42;
     /* slate-900 */
-    --foreground: 248 250 252;
+    --foreground: 248, 250, 252;
     /* slate-50 */
-    --card: 30 41 59;
-    /* slate-800 */
-    --card-foreground: 226 232 240;
-    /* slate-200 */
-    --popover: 30 41 59;
-    /* slate-800 */
-    --popover-foreground: 226 232 240;
-    /* slate-200 */
-    --primary: 20 184 166;
-    /* teal-500 - MEDICAL TEAL */
-    --primary-foreground: 255 255 255;
+    --card: 15, 23, 42;
+    /* slate-900 */
+    --card-foreground: 248, 250, 252;
+    /* slate-50 */
+    --popover: 15, 23, 42;
+    /* slate-900 */
+    --popover-foreground: 255, 255, 255;
     /* white */
-    --secondary: 51 65 85;
-    /* slate-700 */
-    --secondary-foreground: 226 232 240;
-    /* slate-200 */
-    --muted: 51 65 85;
-    /* slate-700 */
-    --muted-foreground: 148 163 184;
+    --primary: 20, 184, 166;
+    /* teal-500 */
+    --primary-foreground: 255, 255, 255;
+    /* white */
+    --secondary: 30, 41, 59;
+    /* slate-800 */
+    --secondary-foreground: 255, 255, 255;
+    /* white */
+    --muted: 30, 41, 59;
+    /* slate-800 */
+    --muted-foreground: 203, 213, 225;
     /* slate-400 */
-    --accent: 20 184 166;
+    --accent: 20, 184, 166;
     /* teal-500 - MEDICAL TEAL */
-    --accent-foreground: 255 255 255;
+    --accent-foreground: 255, 255, 255;
     /* white */
-    --destructive: 239 68 68;
+    --destructive: 239, 68, 68;
     /* red-500 */
-    --destructive-foreground: 248 250 252;
+    --destructive-foreground: 248, 250, 252;
     /* slate-50 */
-    --border: 51 65 85;
+    --border: 51, 65, 85;
     /* slate-700 */
-    --input: 51 65 85;
+    --input: 51, 65, 85;
     /* slate-700 */
-    --ring: 20 184 166;
+    --ring: 20, 184, 166;
     /* teal-500 - MEDICAL TEAL */
     --radius: 0.5rem;
     /* 8px for better compatibility */
 
     /* Medical specific colors */
-    --medical-primary: 20 184 166;
+    --medical-primary: 20, 184, 166;
     /* teal-500 */
-    --medical-secondary: 8 145 178;
+    --medical-secondary: 8, 145, 178;
     /* cyan-600 */
-    --medical-success: 16 185 129;
+    --medical-success: 16, 185, 129;
     /* emerald-500 */
-    --medical-warning: 245 158 11;
+    --medical-warning: 245, 158, 11;
     /* amber-500 */
-    --medical-error: 239 68 68;
+    --medical-error: 239, 68, 68;
     /* red-500 */
   }
 }
 
 @layer base {
   * {
-    border-color: hsl(var(--border));
+    border-color: rgb(var(--border));
   }
 
   html {
-    background-color: hsl(var(--background));
+    background-color: rgb(var(--background));
+    font-size: 102.5%; /* Increase base font size slightly */
   }
 
   body {
-    @apply bg-background text-foreground;
-    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    @apply bg-background text-foreground font-sans;
   }
 
   /* Force teal theme colors */
   .bg-primary {
-    background-color: hsl(20 184 166) !important;
+    background-color: rgb(20, 184, 166) !important;
     /* teal-500 */
   }
 
   .text-primary {
-    color: hsl(20 184 166) !important;
+    color: rgb(20, 184, 166) !important;
     /* teal-500 */
   }
 
   .border-primary {
-    border-color: hsl(20 184 166) !important;
+    border-color: rgb(20, 184, 166) !important;
     /* teal-500 */
   }
 
   .ring-primary {
-    --tw-ring-color: hsl(20 184 166) !important;
+    --tw-ring-color: rgb(20, 184, 166) !important;
     /* teal-500 */
   }
 
@@ -157,7 +156,7 @@
   .bg-amber-500,
   .bg-yellow-400,
   .bg-amber-400 {
-    background-color: hsl(20 184 166) !important;
+    background-color: rgb(20, 184, 166) !important;
     /* teal-500 */
   }
 
@@ -165,13 +164,13 @@
   .text-amber-500,
   .text-yellow-400,
   .text-amber-400 {
-    color: hsl(20 184 166) !important;
+    color: rgb(20, 184, 166) !important;
     /* teal-500 */
   }
 
   /* Ensure buttons use the correct primary color */
   .text-primary-foreground {
-    color: hsl(255 255 255) !important;
+    color: rgb(255, 255, 255) !important;
     /* white */
   }
 
@@ -195,7 +194,7 @@
   .bg-amber-700,
   .bg-amber-800,
   .bg-amber-900 {
-    background-color: hsl(var(--background)) !important;
+    background-color: rgb(var(--background)) !important;
   }
 
   /* Force any element with yellow background to use proper background */
@@ -204,7 +203,7 @@
   [style*="background-color: rgb(255, 255"],
   [class*="yellow"],
   [class*="amber"] {
-    background-color: hsl(var(--background)) !important;
+    background-color: rgb(var(--background)) !important;
   }
 }
 
@@ -351,54 +350,60 @@
   }
 }
 
+/* Global Styles */
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+}
+
 /* FullCalendar Medical Theme Customization */
 .fc {
-  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  /* Font will be inherited from the body */
 }
 
 .fc-theme-standard .fc-scrollgrid {
-  border: 1px solid hsl(var(--border));
+  border: 1px solid rgb(var(--border));
   border-radius: 1rem;
   overflow: hidden;
 }
 
 .fc-theme-standard td,
 .fc-theme-standard th {
-  border-color: hsl(var(--border));
+  border-color: rgb(var(--border));
 }
 
 .fc-theme-standard .fc-scrollgrid-section>* {
-  border-color: hsl(var(--border));
+  border-color: rgb(var(--border));
 }
 
 .fc-col-header-cell {
-  background: hsl(var(--muted));
-  color: hsl(var(--muted-foreground));
+  background: rgb(var(--muted));
+  color: rgb(var(--muted-foreground));
   font-weight: 600;
   padding: 0.75rem 0.5rem;
 }
 
 .fc-daygrid-day {
-  background: hsl(var(--background));
+  background: rgb(var(--background));
   transition: background-color 0.2s ease;
 }
 
 .fc-daygrid-day:hover {
-  background: hsl(var(--muted));
+  background: rgb(var(--muted));
 }
 
 .fc-daygrid-day-number {
-  color: hsl(var(--foreground));
+  color: rgb(var(--foreground));
   font-weight: 500;
   padding: 0.5rem;
 }
 
 .fc-day-today {
-  background: hsl(var(--medical-primary) / 0.1) !important;
+  background: rgb(var(--medical-primary) / 0.1) !important;
 }
 
 .fc-day-today .fc-daygrid-day-number {
-  background: hsl(var(--medical-primary));
+  background: rgb(var(--medical-primary));
   color: white;
   border-radius: 50%;
   width: 2rem;
@@ -426,22 +431,22 @@
 }
 
 .fc-event-scheduled {
-  background: linear-gradient(135deg, hsl(var(--medical-primary)), hsl(var(--medical-secondary))) !important;
+  background: linear-gradient(135deg, rgb(var(--medical-primary)), rgb(var(--medical-secondary))) !important;
   color: white !important;
 }
 
 .fc-event-completed {
-  background: linear-gradient(135deg, hsl(var(--medical-success)), hsl(var(--medical-success) / 0.8)) !important;
+  background: linear-gradient(135deg, rgb(var(--medical-success)), rgb(var(--medical-success) / 0.8)) !important;
   color: white !important;
 }
 
 .fc-event-cancelled {
-  background: linear-gradient(135deg, hsl(var(--medical-error)), hsl(var(--medical-error) / 0.8)) !important;
+  background: linear-gradient(135deg, rgb(var(--medical-error)), rgb(var(--medical-error) / 0.8)) !important;
   color: white !important;
 }
 
 .fc-event-noshow {
-  background: linear-gradient(135deg, hsl(var(--medical-warning)), hsl(var(--medical-warning) / 0.8)) !important;
+  background: linear-gradient(135deg, rgb(var(--medical-warning)), rgb(var(--medical-warning) / 0.8)) !important;
   color: white !important;
 }
 
@@ -450,13 +455,13 @@
 }
 
 .fc-toolbar-title {
-  color: hsl(var(--foreground)) !important;
+  color: rgb(var(--foreground)) !important;
   font-size: 1.5rem !important;
   font-weight: 700 !important;
 }
 
 .fc-button {
-  background: hsl(var(--medical-primary)) !important;
+  background: rgb(var(--medical-primary)) !important;
   border: none !important;
   border-radius: 0.75rem !important;
   padding: 0.5rem 1rem !important;
@@ -465,25 +470,25 @@
 }
 
 .fc-button:hover {
-  background: hsl(var(--medical-secondary)) !important;
+  background: rgb(var(--medical-secondary)) !important;
   transform: translateY(-1px) !important;
 }
 
 .fc-button:disabled {
-  background: hsl(var(--muted)) !important;
-  color: hsl(var(--muted-foreground)) !important;
+  background: rgb(var(--muted)) !important;
+  color: rgb(var(--muted-foreground)) !important;
   opacity: 0.5 !important;
 }
 
 .fc-button-active {
-  background: hsl(var(--medical-secondary)) !important;
+  background: rgb(var(--medical-secondary)) !important;
 }
 
 .fc-more-link {
-  color: hsl(var(--medical-primary)) !important;
+  color: rgb(var(--medical-primary)) !important;
   font-weight: 500 !important;
 }
 
 .fc-more-link:hover {
-  color: hsl(var(--medical-secondary)) !important;
+  color: rgb(var(--medical-secondary)) !important;
 }
