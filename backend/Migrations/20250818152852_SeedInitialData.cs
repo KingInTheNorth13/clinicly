@@ -26,14 +26,16 @@ namespace ClinicAppointmentSystem.Migrations
             // Password: "admin123" - Note: In production, use proper password hashing
             migrationBuilder.Sql(@"
                 INSERT INTO ""Users"" (""ClinicId"", ""DoctorId"", ""Email"", ""PasswordHash"", ""Role"", ""CreatedAt"") 
-                VALUES (1, NULL, 'admin@democlinic.com', '$2a$11$rQZJKjKjKjKjKjKjKjKjKOeH8vKjKjKjKjKjKjKjKjKjKjKjKjKjK', 'Admin', CURRENT_TIMESTAMP);
+                VALUES (1, NULL, 'admin@democlinic.com', '$2a$11$N9qo8uLOickgx2ZMRZoMye.bJe68LJlz/RZlbxyS3L16toGdsOlW6', 'Admin', CURRENT_TIMESTAMP)
+                ON CONFLICT (""Email"") DO NOTHING;
             ");
 
             // Insert doctor user account
             // Password: "doctor123" - Note: In production, use proper password hashing
             migrationBuilder.Sql(@"
                 INSERT INTO ""Users"" (""ClinicId"", ""DoctorId"", ""Email"", ""PasswordHash"", ""Role"", ""CreatedAt"") 
-                VALUES (1, 1, 'dr.smith@democlinic.com', '$2a$11$sQZJKjKjKjKjKjKjKjKjKOeH8vKjKjKjKjKjKjKjKjKjKjKjKjKjL', 'Doctor', CURRENT_TIMESTAMP);
+                VALUES (1, 1, 'dr.smith@democlinic.com', '$2a$11$6BNUOWmnLGp4vAHTABbiYu.hCxUxFkRIgtnMdOWYg3dMfW9lWtHiq', 'Doctor', CURRENT_TIMESTAMP)
+                ON CONFLICT (""Email"") DO NOTHING;
             ");
 
             // Insert sample patient

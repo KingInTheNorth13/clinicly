@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ClinicAppointmentSystem.DTOs;
 using ClinicAppointmentSystem.Services;
@@ -15,24 +14,22 @@ public static class AuthenticationEndpoints
 
         auth.MapPost("/login", LoginAsync)
             .WithName("Login")
-            .WithSummary("Authenticate user and return JWT token")
+            .WithSummary("Authenticate user and get access token")
             .Produces<LoginResponse>(StatusCodes.Status200OK)
-            .Produces(StatusCodes.Status400BadRequest)
-            .Produces(StatusCodes.Status401Unauthorized);
+            .Produces(StatusCodes.Status401Unauthorized)
+            .Produces(StatusCodes.Status400BadRequest);
 
         auth.MapPost("/refresh", RefreshTokenAsync)
             .WithName("RefreshToken")
-            .WithSummary("Refresh JWT token using refresh token")
+            .WithSummary("Refresh access token")
             .Produces<LoginResponse>(StatusCodes.Status200OK)
-            .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status401Unauthorized);
 
         auth.MapPost("/logout", LogoutAsync)
             .RequireAuthorization()
             .WithName("Logout")
-            .WithSummary("Revoke refresh token and logout user")
-            .Produces(StatusCodes.Status200OK)
-            .Produces(StatusCodes.Status400BadRequest);
+            .WithSummary("Logout and revoke refresh token")
+            .Produces(StatusCodes.Status200OK);
     }
 
     private static async Task<IResult> LoginAsync(
@@ -77,20 +74,11 @@ public static class AuthenticationEndpoints
         [FromBody] RefreshTokenRequest request,
         [FromServices] IAuthenticationService authService)
     {
-        if (string.IsNullOrEmpty(request.RefreshToken))
+        if (!string.IsNullOrEmpty(request.RefreshToken))
         {
-            return Results.BadRequest("Refresh token is required");
-        }
-
-        var success = await authService.RevokeTokenAsync(request.RefreshToken);
-        
-        if (!success)
-        {
-            return Results.BadRequest("Failed to revoke token");
+            await authService.RevokeTokenAsync(request.RefreshToken);
         }
 
         return Results.Ok(new { message = "Logged out successfully" });
     }
-
-
 }

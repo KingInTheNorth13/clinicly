@@ -83,9 +83,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
       dispatch({ type: 'SET_LOADING', payload: true });
       
       const authResponse = await authService.login(credentials);
+      
+      // Ensure the user state is properly set
       dispatch({ type: 'SET_USER', payload: authResponse.user });
       
       toast.success('Login successful');
+      
+      // Return the user data so the caller knows login was successful
+      return Promise.resolve();
     } catch (error) {
       dispatch({ type: 'SET_LOADING', payload: false });
       const message = error instanceof Error ? error.message : 'Login failed';

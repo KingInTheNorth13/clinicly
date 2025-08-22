@@ -1,9 +1,10 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
-import { AppLayout } from './components/layout/AppLayout';
+import { AppLayout } from './components/layout';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
 import { LoginPage, DashboardPage, AppointmentsPage, PatientsPage } from './pages';
 import { Toaster } from '@/components/ui/sonner';
+import './index.css';
 import './App.css';
 
 // Placeholder components for admin routes

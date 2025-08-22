@@ -81,10 +81,10 @@ export function Sidebar() {
   });
 
   return (
-    <Card className="w-64 min-h-screen rounded-none border-r bg-gray-50/50">
+    <Card className="w-64 min-h-screen rounded-none border-r bg-muted/30">
       <div className="p-4">
         <div className="mb-6">
-          <h2 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
+          <h2 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">
             Navigation
           </h2>
         </div>
@@ -98,8 +98,8 @@ export function Sidebar() {
                 cn(
                   'group flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200',
                   isActive
-                    ? 'bg-blue-600 text-white shadow-md'
-                    : 'text-gray-700 hover:bg-white hover:text-gray-900 hover:shadow-sm'
+                    ? 'bg-primary text-primary-foreground shadow-md'
+                    : 'text-foreground hover:bg-card hover:text-foreground hover:shadow-sm'
                 )
               }
             >
@@ -109,7 +109,7 @@ export function Sidebar() {
                     <item.icon 
                       className={cn(
                         "h-4 w-4 transition-colors",
-                        isActive ? "text-white" : "text-gray-500 group-hover:text-gray-700"
+                        isActive ? "text-primary-foreground" : "text-muted-foreground group-hover:text-foreground"
                       )} 
                     />
                     <div className="flex flex-col">
@@ -117,7 +117,7 @@ export function Sidebar() {
                       {item.description && (
                         <span className={cn(
                           "text-xs transition-colors",
-                          isActive ? "text-blue-100" : "text-gray-500 group-hover:text-gray-600"
+                          isActive ? "text-primary-foreground/80" : "text-muted-foreground group-hover:text-foreground/80"
                         )}>
                           {item.description}
                         </span>
@@ -131,8 +131,8 @@ export function Sidebar() {
                       className={cn(
                         "text-xs px-2 py-0.5",
                         isActive 
-                          ? "bg-blue-500 text-white border-blue-400" 
-                          : "bg-purple-100 text-purple-700 border-purple-200"
+                          ? "bg-primary/20 text-primary-foreground border-primary/30" 
+                          : "bg-primary/10 text-primary border-primary/20"
                       )}
                     >
                       {item.badge}
@@ -145,12 +145,12 @@ export function Sidebar() {
         </nav>
 
         {/* User Role Info */}
-        <div className="mt-8 p-3 bg-white rounded-lg border border-gray-200">
+        <div className="mt-8 p-3 bg-card rounded-lg border border-border">
           <div className="flex items-center space-x-2">
-            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-            <span className="text-xs text-gray-600">Logged in as</span>
+            <div className="w-2 h-2 bg-primary rounded-full"></div>
+            <span className="text-xs text-muted-foreground">Logged in as</span>
           </div>
-          <p className="text-sm font-medium text-gray-900 mt-1">
+          <p className="text-sm font-medium text-foreground mt-1">
             {user?.role}
           </p>
         </div>

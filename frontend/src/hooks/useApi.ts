@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { apiService } from '@/services/api';
-import type { ApiResponse } from '@/types';
 import { toast } from 'sonner';
 
 interface UseApiState {
@@ -15,7 +14,7 @@ export function useApi() {
   });
 
   const handleRequest = async <T>(
-    request: () => Promise<ApiResponse<T>>,
+    request: () => Promise<T>,
     showSuccessToast = false,
     successMessage = 'Operation completed successfully'
   ): Promise<T | null> => {
@@ -24,18 +23,11 @@ export function useApi() {
       
       const response = await request();
       
-      if (response.success && response.data) {
-        if (showSuccessToast) {
-          toast.success(successMessage);
-        }
-        setState({ loading: false, error: null });
-        return response.data;
-      } else {
-        const errorMessage = response.error?.message || 'An error occurred';
-        setState({ loading: false, error: errorMessage });
-        toast.error(errorMessage);
-        return null;
+      if (showSuccessToast) {
+        toast.success(successMessage);
       }
+      setState({ loading: false, error: null });
+      return response;
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
       setState({ loading: false, error: errorMessage });

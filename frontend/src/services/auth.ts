@@ -1,22 +1,62 @@
 import { apiService } from './api';
-import type { LoginRequest, AuthResponse, RefreshTokenRequest, User } from '@/types';
+import type { LoginRequest, AuthResponse, User } from '@/types';
 
 class AuthService {
   async login(credentials: LoginRequest): Promise<AuthResponse> {
-    const response = await apiService.post<AuthResponse>('/auth/login', credentials);
-    
-    if (response.success && response.data) {
-      const { token, refreshToken, user } = response.data;
+    try {
+      const response = await apiService.post<any>('/auth/login', credentials);
+      
+      console.log('Login response:', response);
+      console.log('Response keys:', Object.keys(response));
+      console.log('Response type:', typeof response);
+      
+      const { accessToken, refreshToken, user } = response;
+      
+      console.log('Extracted values:', {
+        AccessToken: accessToken,
+        RefreshToken: refreshToken,
+        User: user,
+        AccessTokenType: typeof accessToken,
+        UserType: typeof user
+      });
+      
+      // Validate that we have valid data before storing
+      if (!accessToken || !user) {
+        console.error('Missing required data:', { 
+          AccessToken: !!accessToken, 
+          User: !!user,
+          fullResponse: response 
+        });
+        throw new Error('Invalid response from server');
+      }
       
       // Store tokens in localStorage
-      localStorage.setItem('authToken', token);
-      localStorage.setItem('refreshToken', refreshToken);
+      localStorage.setItem('authToken', accessToken);
+      localStorage.setItem('refreshToken', refreshToken || '');
       localStorage.setItem('user', JSON.stringify(user));
       
-      return response.data;
+      console.log('Stored user data:', JSON.stringify(user));
+      
+      // Return in the format expected by frontend
+      return {
+        token: accessToken,
+        refreshToken: refreshToken,
+        user: user
+      };
+    } catch (error: any) {
+      console.error('Login error details:', error);
+      
+      // Handle axios errors
+      if (error.response?.status === 401) {
+        throw new Error('Invalid email or password');
+      } else if (error.response?.status === 400) {
+        throw new Error('Please provide valid email and password');
+      } else if (error.response?.data?.message) {
+        throw new Error(error.response.data.message);
+      } else {
+        throw new Error(error.message || 'Login failed');
+      }
     }
-    
-    throw new Error(response.error?.message || 'Login failed');
   }
 
   async logout(): Promise<void> {
@@ -41,26 +81,33 @@ class AuthService {
       throw new Error('No refresh token available');
     }
 
-    const response = await apiService.post<{ token: string }>('/auth/refresh', {
-      refreshToken,
-    } as RefreshTokenRequest);
+    try {
+      const response = await apiService.post<any>('/auth/refresh', {
+        RefreshToken: refreshToken,
+      });
 
-    if (response.success && response.data) {
-      const { token } = response.data;
-      localStorage.setItem('authToken', token);
-      return token;
+      const { AccessToken } = response;
+      localStorage.setItem('authToken', AccessToken);
+      return AccessToken;
+    } catch (error: any) {
+      // Handle axios errors
+      if (error.response?.status === 401) {
+        throw new Error('Refresh token expired');
+      } else {
+        throw new Error(error.message || 'Token refresh failed');
+      }
     }
-
-    throw new Error(response.error?.message || 'Token refresh failed');
   }
 
   getCurrentUser(): User | null {
     const userStr = localStorage.getItem('user');
-    if (userStr) {
+    if (userStr && userStr !== 'undefined' && userStr !== 'null') {
       try {
         return JSON.parse(userStr);
       } catch (error) {
         console.error('Error parsing user data:', error);
+        // Clear invalid user data
+        localStorage.removeItem('user');
         return null;
       }
     }
@@ -74,7 +121,21 @@ class AuthService {
   isAuthenticated(): boolean {
     const token = this.getToken();
     const user = this.getCurrentUser();
-    return !!(token && user);
+    
+    // Check if we have both token and valid user data
+    if (!token || !user) {
+      // Clear any invalid data
+      if (!user) {
+        localStorage.removeItem('user');
+      }
+      if (!token) {
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('refreshToken');
+      }
+      return false;
+    }
+    
+    return true;
   }
 }
 

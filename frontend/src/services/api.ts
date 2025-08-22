@@ -1,5 +1,4 @@
 import axios, { type AxiosInstance, type AxiosResponse, AxiosError, type InternalAxiosRequestConfig } from 'axios';
-import type { ApiResponse } from '@/types';
 
 class ApiService {
   private client: AxiosInstance;
@@ -46,14 +45,14 @@ class ApiService {
             const refreshToken = localStorage.getItem('refreshToken');
             if (refreshToken) {
               const response = await this.client.post('/auth/refresh', {
-                refreshToken,
+                RefreshToken: refreshToken,
               });
 
-              const { token } = response.data;
-              localStorage.setItem('authToken', token);
+              const { AccessToken } = response.data;
+              localStorage.setItem('authToken', AccessToken);
 
               // Retry the original request with new token
-              originalRequest.headers.Authorization = `Bearer ${token}`;
+              originalRequest.headers.Authorization = `Bearer ${AccessToken}`;
               return this.client(originalRequest);
             }
           } catch (refreshError) {
@@ -69,23 +68,23 @@ class ApiService {
     );
   }
 
-  async get<T>(url: string): Promise<ApiResponse<T>> {
-    const response = await this.client.get<ApiResponse<T>>(url);
+  async get<T>(url: string): Promise<T> {
+    const response = await this.client.get<T>(url);
     return response.data;
   }
 
-  async post<T>(url: string, data?: any): Promise<ApiResponse<T>> {
-    const response = await this.client.post<ApiResponse<T>>(url, data);
+  async post<T>(url: string, data?: any): Promise<T> {
+    const response = await this.client.post<T>(url, data);
     return response.data;
   }
 
-  async put<T>(url: string, data?: any): Promise<ApiResponse<T>> {
-    const response = await this.client.put<ApiResponse<T>>(url, data);
+  async put<T>(url: string, data?: any): Promise<T> {
+    const response = await this.client.put<T>(url, data);
     return response.data;
   }
 
-  async delete<T>(url: string): Promise<ApiResponse<T>> {
-    const response = await this.client.delete<ApiResponse<T>>(url);
+  async delete<T>(url: string): Promise<T> {
+    const response = await this.client.delete<T>(url);
     return response.data;
   }
 }

@@ -4,117 +4,486 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222.2 84% 4.9%;
-    --muted: 210 40% 96%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96%;
-    --accent-foreground: 222.2 84% 4.9%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
+    /* Medical Theme - Light Mode */
+    --background: 248 250 252;
+    /* slate-50 */
+    --foreground: 15 23 42;
+    /* slate-900 */
+    --card: 255 255 255;
+    /* white */
+    --card-foreground: 15 23 42;
+    /* slate-900 */
+    --popover: 255 255 255;
+    /* white */
+    --popover-foreground: 15 23 42;
+    /* slate-900 */
+    --primary: 20 184 166;
+    /* teal-500 - MEDICAL TEAL */
+    --primary-foreground: 255 255 255;
+    /* white */
+    --secondary: 226 232 240;
+    /* slate-200 */
+    --secondary-foreground: 30 41 59;
+    /* slate-800 */
+    --muted: 241 245 249;
+    /* slate-100 */
+    --muted-foreground: 100 116 139;
+    /* slate-500 */
+    --accent: 20 184 166;
+    /* teal-500 - MEDICAL TEAL */
+    --accent-foreground: 255 255 255;
+    /* white */
+    --destructive: 239 68 68;
+    /* red-500 */
+    --destructive-foreground: 248 250 252;
+    /* slate-50 */
+    --border: 226 232 240;
+    /* slate-200 */
+    --input: 226 232 240;
+    /* slate-200 */
+    --ring: 20 184 166;
+    /* teal-500 - MEDICAL TEAL */
     --radius: 0.5rem;
+    /* 8px for better compatibility */
+
+    /* Medical specific colors */
+    --medical-primary: 20 184 166;
+    /* teal-500 */
+    --medical-secondary: 8 145 178;
+    /* cyan-600 */
+    --medical-success: 16 185 129;
+    /* emerald-500 */
+    --medical-warning: 245 158 11;
+    /* amber-500 */
+    --medical-error: 239 68 68;
+    /* red-500 */
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 84% 4.9%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 94.1%;
+    /* Medical Theme - Dark Mode */
+    --background: 15 23 42;
+    /* slate-900 */
+    --foreground: 248 250 252;
+    /* slate-50 */
+    --card: 30 41 59;
+    /* slate-800 */
+    --card-foreground: 226 232 240;
+    /* slate-200 */
+    --popover: 30 41 59;
+    /* slate-800 */
+    --popover-foreground: 226 232 240;
+    /* slate-200 */
+    --primary: 20 184 166;
+    /* teal-500 - MEDICAL TEAL */
+    --primary-foreground: 255 255 255;
+    /* white */
+    --secondary: 51 65 85;
+    /* slate-700 */
+    --secondary-foreground: 226 232 240;
+    /* slate-200 */
+    --muted: 51 65 85;
+    /* slate-700 */
+    --muted-foreground: 148 163 184;
+    /* slate-400 */
+    --accent: 20 184 166;
+    /* teal-500 - MEDICAL TEAL */
+    --accent-foreground: 255 255 255;
+    /* white */
+    --destructive: 239 68 68;
+    /* red-500 */
+    --destructive-foreground: 248 250 252;
+    /* slate-50 */
+    --border: 51 65 85;
+    /* slate-700 */
+    --input: 51 65 85;
+    /* slate-700 */
+    --ring: 20 184 166;
+    /* teal-500 - MEDICAL TEAL */
+    --radius: 0.5rem;
+    /* 8px for better compatibility */
+
+    /* Medical specific colors */
+    --medical-primary: 20 184 166;
+    /* teal-500 */
+    --medical-secondary: 8 145 178;
+    /* cyan-600 */
+    --medical-success: 16 185 129;
+    /* emerald-500 */
+    --medical-warning: 245 158 11;
+    /* amber-500 */
+    --medical-error: 239 68 68;
+    /* red-500 */
   }
 }
 
 @layer base {
-  body {
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  html {
     background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  /* Force teal theme colors */
+  .bg-primary {
+    background-color: hsl(20 184 166) !important;
+    /* teal-500 */
+  }
+
+  .text-primary {
+    color: hsl(20 184 166) !important;
+    /* teal-500 */
+  }
+
+  .border-primary {
+    border-color: hsl(20 184 166) !important;
+    /* teal-500 */
+  }
+
+  .ring-primary {
+    --tw-ring-color: hsl(20 184 166) !important;
+    /* teal-500 */
+  }
+
+  /* Override any yellow colors that might be showing */
+  .bg-yellow-500,
+  .bg-amber-500,
+  .bg-yellow-400,
+  .bg-amber-400 {
+    background-color: hsl(20 184 166) !important;
+    /* teal-500 */
+  }
+
+  .text-yellow-500,
+  .text-amber-500,
+  .text-yellow-400,
+  .text-amber-400 {
+    color: hsl(20 184 166) !important;
+    /* teal-500 */
+  }
+
+  /* Ensure buttons use the correct primary color */
+  .text-primary-foreground {
+    color: hsl(255 255 255) !important;
+    /* white */
+  }
+
+  /* Ensure hover states use correct colors */
+  
+
+  /* Comprehensive yellow/amber background override */
+  .bg-yellow-50,
+  .bg-yellow-100,
+  .bg-yellow-200,
+  .bg-yellow-300,
+  .bg-yellow-600,
+  .bg-yellow-700,
+  .bg-yellow-800,
+  .bg-yellow-900,
+  .bg-amber-50,
+  .bg-amber-100,
+  .bg-amber-200,
+  .bg-amber-300,
+  .bg-amber-600,
+  .bg-amber-700,
+  .bg-amber-800,
+  .bg-amber-900 {
+    background-color: hsl(var(--background)) !important;
+  }
+
+  /* Force any element with yellow background to use proper background */
+  [style*="background-color: yellow"],
+  [style*="background-color: #ffff"],
+  [style*="background-color: rgb(255, 255"],
+  [class*="yellow"],
+  [class*="amber"] {
+    background-color: hsl(var(--background)) !important;
   }
 }
 
 @layer utilities {
-  /* Login page animations */
-  @keyframes fade-in {
-    from { 
-      opacity: 0; 
-      transform: translateY(-20px); 
+
+  /* Medical Theme Animations */
+  @keyframes medicalFloat {
+
+    0%,
+    100% {
+      transform: translateY(0px) rotate(0deg);
     }
-    to { 
-      opacity: 1; 
-      transform: translateY(0); 
-    }
-  }
-  
-  @keyframes slide-up {
-    from { 
-      opacity: 0; 
-      transform: translateY(30px) scale(0.95); 
-    }
-    to { 
-      opacity: 1; 
-      transform: translateY(0) scale(1); 
-    }
-  }
-  
-  @keyframes bounce-subtle {
-    0%, 100% { 
-      transform: translateY(0) scale(1); 
-    }
-    50% { 
-      transform: translateY(-3px) scale(1.05); 
-    }
-  }
-  
-  @keyframes pulse-glow {
-    0%, 100% {
-      box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
-    }
+
     50% {
-      box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+      transform: translateY(-6px) rotate(1deg);
     }
   }
-  
+
+  @keyframes medicalPulse {
+
+    0%,
+    100% {
+      transform: scale(1);
+      box-shadow: 0 0 0 0 rgba(20, 184, 166, 0.4);
+    }
+
+    50% {
+      transform: scale(1.05);
+      box-shadow: 0 0 0 10px rgba(20, 184, 166, 0);
+    }
+  }
+
+  @keyframes medicalSparkle {
+
+    0%,
+    100% {
+      opacity: 0.3;
+      transform: scale(0.8) rotate(0deg);
+    }
+
+    50% {
+      opacity: 1;
+      transform: scale(1.2) rotate(180deg);
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px) scale(0.95);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes bounce-subtle {
+
+    0%,
+    100% {
+      transform: translateY(0) scale(1);
+    }
+
+    50% {
+      transform: translateY(-3px) scale(1.05);
+    }
+  }
+
+  @keyframes pulse-glow {
+
+    0%,
+    100% {
+      box-shadow: 0 0 20px rgba(20, 184, 166, 0.3);
+    }
+
+    50% {
+      box-shadow: 0 0 30px rgba(20, 184, 166, 0.5);
+    }
+  }
+
+  /* Medical Animation Classes */
+  .animate-medical-float {
+    animation: medicalFloat 3s ease-in-out infinite;
+  }
+
+  .animate-medical-pulse {
+    animation: medicalPulse 2s ease-in-out infinite;
+  }
+
+  .animate-medical-sparkle {
+    animation: medicalSparkle 2s ease-in-out infinite;
+  }
+
+  /* Existing animations */
   .animate-fade-in {
     animation: fade-in 0.8s ease-out;
   }
-  
+
   .animate-fade-in-delayed {
     animation: fade-in 1s ease-out 0.3s both;
   }
-  
+
   .animate-slide-up {
     animation: slide-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
   }
-  
+
   .animate-bounce-subtle {
     animation: bounce-subtle 3s ease-in-out infinite;
   }
-  
+
   .animate-pulse-glow {
     animation: pulse-glow 2s ease-in-out infinite;
   }
+
+  /* Medical Theme Utilities */
+  .medical-card {
+    @apply bg-card/80 backdrop-blur-xl border border-border/50 rounded-[28px] shadow-lg;
+  }
+
+  .medical-button {
+    @apply bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 text-white font-medium rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl;
+  }
+
+  .medical-input {
+    @apply bg-background/50 border border-border rounded-2xl px-4 py-3 focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200;
+  }
+
+  .medical-glass {
+    @apply bg-background/20 backdrop-blur-[20px] border border-white/10;
+  }
+}
+
+/* FullCalendar Medical Theme Customization */
+.fc {
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.fc-theme-standard .fc-scrollgrid {
+  border: 1px solid hsl(var(--border));
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.fc-theme-standard td,
+.fc-theme-standard th {
+  border-color: hsl(var(--border));
+}
+
+.fc-theme-standard .fc-scrollgrid-section>* {
+  border-color: hsl(var(--border));
+}
+
+.fc-col-header-cell {
+  background: hsl(var(--muted));
+  color: hsl(var(--muted-foreground));
+  font-weight: 600;
+  padding: 0.75rem 0.5rem;
+}
+
+.fc-daygrid-day {
+  background: hsl(var(--background));
+  transition: background-color 0.2s ease;
+}
+
+.fc-daygrid-day:hover {
+  background: hsl(var(--muted));
+}
+
+.fc-daygrid-day-number {
+  color: hsl(var(--foreground));
+  font-weight: 500;
+  padding: 0.5rem;
+}
+
+.fc-day-today {
+  background: hsl(var(--medical-primary) / 0.1) !important;
+}
+
+.fc-day-today .fc-daygrid-day-number {
+  background: hsl(var(--medical-primary));
+  color: white;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0.25rem;
+}
+
+.fc-event {
+  border: none !important;
+  border-radius: 0.75rem !important;
+  padding: 0.25rem 0.5rem !important;
+  font-weight: 500 !important;
+  font-size: 0.875rem !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+.fc-event:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15) !important;
+}
+
+.fc-event-scheduled {
+  background: linear-gradient(135deg, hsl(var(--medical-primary)), hsl(var(--medical-secondary))) !important;
+  color: white !important;
+}
+
+.fc-event-completed {
+  background: linear-gradient(135deg, hsl(var(--medical-success)), hsl(var(--medical-success) / 0.8)) !important;
+  color: white !important;
+}
+
+.fc-event-cancelled {
+  background: linear-gradient(135deg, hsl(var(--medical-error)), hsl(var(--medical-error) / 0.8)) !important;
+  color: white !important;
+}
+
+.fc-event-noshow {
+  background: linear-gradient(135deg, hsl(var(--medical-warning)), hsl(var(--medical-warning) / 0.8)) !important;
+  color: white !important;
+}
+
+.fc-toolbar {
+  margin-bottom: 1.5rem !important;
+}
+
+.fc-toolbar-title {
+  color: hsl(var(--foreground)) !important;
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+}
+
+.fc-button {
+  background: hsl(var(--medical-primary)) !important;
+  border: none !important;
+  border-radius: 0.75rem !important;
+  padding: 0.5rem 1rem !important;
+  font-weight: 500 !important;
+  transition: all 0.2s ease !important;
+}
+
+.fc-button:hover {
+  background: hsl(var(--medical-secondary)) !important;
+  transform: translateY(-1px) !important;
+}
+
+.fc-button:disabled {
+  background: hsl(var(--muted)) !important;
+  color: hsl(var(--muted-foreground)) !important;
+  opacity: 0.5 !important;
+}
+
+.fc-button-active {
+  background: hsl(var(--medical-secondary)) !important;
+}
+
+.fc-more-link {
+  color: hsl(var(--medical-primary)) !important;
+  font-weight: 500 !important;
+}
+
+.fc-more-link:hover {
+  color: hsl(var(--medical-secondary)) !important;
 }
