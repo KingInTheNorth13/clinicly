@@ -10,7 +10,7 @@ import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { appointmentService } from '@/services/appointments';
 import { useAuth } from '@/hooks/useAuth';
-import type { Appointment, CalendarEvent } from '@/types';
+import type { Appointment, CalendarEvent, AppointmentStatus } from '@/types';
 
 interface CalendarViewProps {
   onAppointmentSelect?: (appointment: Appointment) => void;
@@ -65,18 +65,47 @@ export function CalendarView({ onAppointmentSelect, onDateSelect }: CalendarView
     onDateSelect?.(clickedDate);
   };
 
-  const getStatusBadgeVariant = (status: string) => {
-    switch (status.toLowerCase()) {
+  const getStatusBadgeVariant = (status: AppointmentStatus) => {
+    if (!status) return 'default';
+    
+    switch (status.toString().toLowerCase()) {
       case 'scheduled':
+      case '0':
         return 'default';
       case 'completed':
+      case '1':
         return 'secondary';
       case 'cancelled':
+      case '2':
         return 'destructive';
       case 'noshow':
+      case '3':
         return 'outline';
       default:
         return 'default';
+    }
+  };
+
+  const getStatusDisplayName = (status: AppointmentStatus): string => {
+    if (!status && status !== 0) return 'Unknown';
+    
+    // Handle both string and numeric enum values
+    const statusStr = status.toString();
+    switch (statusStr.toLowerCase()) {
+      case 'scheduled':
+      case '0':
+        return 'Scheduled';
+      case 'completed':
+      case '1':
+        return 'Completed';
+      case 'cancelled':
+      case '2':
+        return 'Cancelled';
+      case 'noshow':
+      case '3':
+        return 'No Show';
+      default:
+        return statusStr;
     }
   };
 
@@ -155,8 +184,11 @@ export function CalendarView({ onAppointmentSelect, onDateSelect }: CalendarView
               dayMaxEvents={3}
               moreLinkClick="popover"
               eventClassNames={(arg) => {
-                const status = arg.event.extendedProps.appointment.status.toLowerCase();
-                return [`fc-event-${status}`];
+                const status = arg.event.extendedProps.appointment.status;
+                if (!status) return ['fc-event-scheduled'];
+                
+                const statusStr = status.toString().toLowerCase();
+                return [`fc-event-${statusStr}`];
               }}
               dayCellClassNames="hover:bg-muted/50 transition-colors duration-200"
               eventMouseEnter={(info) => {
@@ -187,7 +219,7 @@ export function CalendarView({ onAppointmentSelect, onDateSelect }: CalendarView
               <div className="flex items-center justify-between">
                 <span className="font-medium">Status:</span>
                 <Badge variant={getStatusBadgeVariant(selectedAppointment.status)}>
-                  {selectedAppointment.status}
+                  {getStatusDisplayName(selectedAppointment.status)}
                 </Badge>
               </div>
               

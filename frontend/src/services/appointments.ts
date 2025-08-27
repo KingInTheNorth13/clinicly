@@ -1,10 +1,23 @@
 import { apiService } from './api';
-import type { Appointment, AppointmentFormData, CalendarEvent } from '@/types';
+import type { Appointment, AppointmentFormData, CalendarEvent, AppointmentStatus } from '@/types';
 
 export class AppointmentService {
   async getAppointments(): Promise<Appointment[]> {
-    const response = await apiService.get<Appointment[]>('/appointments');
-    return response || [];
+    // Use the search endpoint with default parameters to get all appointments
+    const searchRequest = {
+      page: 1,
+      pageSize: 1000 // Large page size to get all appointments
+    };
+    
+    // Try admin endpoint first, fall back to regular search if not admin
+    try {
+      const response = await apiService.post<{items: Appointment[], totalCount: number}>('/appointments/admin/search', searchRequest);
+      return response?.items || [];
+    } catch (error) {
+      // If admin endpoint fails, try regular search endpoint
+      const response = await apiService.post<{items: Appointment[], totalCount: number}>('/appointments/search', searchRequest);
+      return response?.items || [];
+    }
   }
 
   async getAppointmentsByDoctor(doctorId: number): Promise<Appointment[]> {
@@ -61,8 +74,16 @@ export class AppointmentService {
     return end.toISOString();
   }
 
-  private getStatusColor(status: string): string {
-    switch (status.toLowerCase()) {
+  private getStatusColor(status: AppointmentStatus): string {
+    // Handle null/undefined status
+    if (!status) {
+      return 'hsl(var(--medical-primary))';
+    }
+    
+    // Convert to string and lowercase for comparison
+    const statusStr = status.toString().toLowerCase();
+    
+    switch (statusStr) {
       case 'scheduled':
         return 'hsl(var(--medical-primary))';
       case 'completed':

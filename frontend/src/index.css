@@ -123,11 +123,15 @@
 
   html {
     background-color: rgb(var(--background));
-    font-size: 102.5%; /* Increase base font size slightly */
+    font-size: 16px; /* Base font size */
+    line-height: 1.6; /* Better line height for readability */
   }
 
   body {
     @apply bg-background text-foreground font-sans;
+    font-size: 1rem; /* 16px base */
+    font-weight: 400;
+    letter-spacing: 0.01em; /* Slight letter spacing for better readability */
   }
 
   /* Force teal theme colors */
@@ -334,26 +338,66 @@
 
   /* Medical Theme Utilities */
   .medical-card {
-    @apply bg-card/80 backdrop-blur-xl border border-border/50 rounded-[28px] shadow-lg;
+    @apply bg-card/90 backdrop-blur-xl border border-border/50 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300;
   }
 
   .medical-button {
-    @apply bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 text-white font-medium rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl;
+    @apply bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl;
   }
 
   .medical-input {
-    @apply bg-background/50 border border-border rounded-2xl px-4 py-3 focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200;
+    @apply bg-background/50 border border-border rounded-xl px-4 py-3 focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200;
   }
 
   .medical-glass {
     @apply bg-background/20 backdrop-blur-[20px] border border-white/10;
   }
+
+  /* Responsive Text Utilities */
+  .text-responsive-xs { @apply text-xs sm:text-sm; }
+  .text-responsive-sm { @apply text-sm sm:text-base; }
+  .text-responsive-base { @apply text-base sm:text-lg; }
+  .text-responsive-lg { @apply text-lg sm:text-xl; }
+  .text-responsive-xl { @apply text-xl sm:text-2xl; }
+  .text-responsive-2xl { @apply text-2xl sm:text-3xl; }
+  .text-responsive-3xl { @apply text-3xl sm:text-4xl lg:text-5xl; }
+
+  /* Spacing Utilities */
+  .space-responsive { @apply space-y-4 sm:space-y-6 lg:space-y-8; }
+  .p-responsive { @apply p-4 sm:p-6 lg:p-8; }
+  .px-responsive { @apply px-4 sm:px-6 lg:px-8; }
+  .py-responsive { @apply py-4 sm:py-6 lg:py-8; }
 }
 
-/* Global Styles */
+/* Global Typography Styles */
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', 'Roboto', system-ui, -apple-system, sans-serif;
   font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography Scale */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+h1 { font-size: 3.5rem; } /* 56px */
+h2 { font-size: 2.5rem; } /* 40px */
+h3 { font-size: 2rem; }   /* 32px */
+h4 { font-size: 1.5rem; } /* 24px */
+h5 { font-size: 1.25rem; } /* 20px */
+h6 { font-size: 1.125rem; } /* 18px */
+
+/* Responsive Typography */
+@media (max-width: 768px) {
+  h1 { font-size: 2.5rem; } /* 40px on mobile */
+  h2 { font-size: 2rem; }   /* 32px on mobile */
+  h3 { font-size: 1.75rem; } /* 28px on mobile */
 }
 
 /* FullCalendar Medical Theme Customization */

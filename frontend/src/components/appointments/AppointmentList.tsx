@@ -117,29 +117,55 @@ export function AppointmentList({ onEdit, refreshTrigger }: AppointmentListProps
     }
   };
 
+  const getStatusDisplayName = (status: AppointmentStatus): string => {
+    if (!status && status !== 0) return 'Unknown';
+    
+    // Handle both string and numeric enum values
+    const statusStr = status.toString();
+    switch (statusStr.toLowerCase()) {
+      case 'scheduled':
+      case '0':
+        return 'Scheduled';
+      case 'completed':
+      case '1':
+        return 'Completed';
+      case 'cancelled':
+      case '2':
+        return 'Cancelled';
+      case 'noshow':
+      case '3':
+        return 'No Show';
+      default:
+        return statusStr;
+    }
+  };
+
   const getStatusBadge = (status: AppointmentStatus) => {
+    const statusName = getStatusDisplayName(status);
+    
     const variants = {
-      Scheduled: { variant: 'default' as const, icon: Clock, color: 'text-teal-600' },
-      Completed: { variant: 'secondary' as const, icon: CheckCircle, color: 'text-green-600' },
-      Cancelled: { variant: 'destructive' as const, icon: XCircle, color: 'text-red-600' },
-      NoShow: { variant: 'outline' as const, icon: XCircle, color: 'text-amber-600' },
+      'Scheduled': { variant: 'default' as const, icon: Clock, color: 'text-teal-600' },
+      'Completed': { variant: 'secondary' as const, icon: CheckCircle, color: 'text-green-600' },
+      'Cancelled': { variant: 'destructive' as const, icon: XCircle, color: 'text-red-600' },
+      'No Show': { variant: 'outline' as const, icon: XCircle, color: 'text-amber-600' },
     };
 
-    const config = variants[status];
+    const config = variants[statusName] || variants['Scheduled'];
     const Icon = config.icon;
 
     return (
       <Badge variant={config.variant} className="flex items-center space-x-1">
         <Icon className={`h-3 w-3 ${config.color}`} />
-        <span>{status === 'NoShow' ? 'No Show' : status}</span>
+        <span>{statusName}</span>
       </Badge>
     );
   };
 
   const columns: ColumnDef<Appointment>[] = [
     {
-      accessorKey: "patient.name",
+      id: "patient",
       header: "Patient",
+      accessorFn: (row) => row.patient?.name || 'Unknown',
       cell: ({ row }) => {
         const appointment = row.original;
         return (
@@ -182,8 +208,9 @@ export function AppointmentList({ onEdit, refreshTrigger }: AppointmentListProps
       cell: ({ row }) => getStatusBadge(row.getValue("status")),
     },
     ...(user?.role === 'Admin' ? [{
-      accessorKey: "doctor.name",
+      id: "doctor",
       header: "Doctor",
+      accessorFn: (row: Appointment) => row.doctor?.name || 'Unknown',
       cell: ({ row }: { row: any }) => {
         const appointment = row.original;
         return (
@@ -308,7 +335,7 @@ export function AppointmentList({ onEdit, refreshTrigger }: AppointmentListProps
           <DataTable
             columns={columns}
             data={appointments}
-            searchKey="patient.name"
+            searchKey="patient"
             searchPlaceholder="Search patients..."
           />
         </CardContent>
